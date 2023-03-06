@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :races, only: [:index]
   resources :games, only: [:new] do
     resources :boat, only: %i[new create update]
