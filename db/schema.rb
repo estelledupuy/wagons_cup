@@ -10,8 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_153000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "boats", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "sail_position"
+    t.integer "direction"
+    t.integer "speed"
+    t.datetime "score"
+    t.bigint "game_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_boats_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.bigint "race_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_games_on_race_id"
+  end
+
+  create_table "races", force: :cascade do |t|
+    t.string "name"
+    t.float "starting_latitude"
+    t.float "starting_longitude"
+    t.float "ending_latitude"
+    t.float "ending_longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "boats", "games"
+  add_foreign_key "games", "races"
 end
