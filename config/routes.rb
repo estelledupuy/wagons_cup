@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+  root to: "pages#home"
   resources :races, only: [:index] do
     member do
       get '/coordinates', to: "races#coordinates"
     end
   end
-
+  resources :boats, only: %i[new create]
   resources :games, only: [:new] do
-    resources :boat, only: %i[new create update]
+    resources :boats, only: %i[update]
   end
-  root to: "pages#home"
+  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
