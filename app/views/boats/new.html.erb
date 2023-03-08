@@ -1,2 +1,59 @@
-<h1>Boats#new</h1>
-<p>Find me in app/views/boats/new.html.erb</p>
+<div id="banner">
+
+  <div id="beige_box">
+
+    <div id="white-box" class="d-flex">
+
+      <div>
+        <div>
+          <img src="" alt="">
+        </div>
+        <div>
+          <img src="" alt="">
+        </div>
+      </div>
+
+      <div>
+        <h1>Pimp your boat</h1>
+        <%= form_with model: @boat do |f| %>
+          <%= f.text_field :name %>
+          <%= f.label :name, "Name your boat" %>
+          <%= f.radio_button :color, "poppy"%>
+          <%= f.label :poppy, "Poppy"%>
+          <%= f.radio_button :color, "navy"%>
+          <%= f.label :navy, "navy"%>
+          <%= f.radio_button :color, "leafy"%>
+          <%= f.label :leafy, "leafy"%>
+          <%= f.submit %>
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<%# <form action="" method="get" class="form-example">
+  <div class="form-example">
+    <label for="name">Name your boat</label>
+    <input type="text" name="name" id="name" required>
+  </div>
+  <div class="form-example">
+    <label for="poppy">Poppy</label>
+    <input type="checkbox" name="poppy" id="poppy" checked>
+  </div>
+  <div class="form-example">
+    <label for="navy">Navy</label>
+    <input type="checkbox" name="navy" id="navy">
+  </div>
+  <div class="form-example">
+    <label for="leafy">Leafy</label>
+    <input type="checkbox" name="leafy" id="leafy">
+  </div>
+  <div class="form-example">
+    <input type="submit" value="START">
+  </div>
+</form> %>
