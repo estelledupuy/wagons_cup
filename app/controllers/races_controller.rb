@@ -1,5 +1,7 @@
 class RacesController < ApplicationController
   def index
+    @races = Race.all
+    @game = Game.new
   end
 
   def coordinates

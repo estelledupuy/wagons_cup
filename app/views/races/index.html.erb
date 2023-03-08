@@ -1,7 +1,19 @@
-<h1>Races#index</h1>
-<p>Find me in app/views/races/index.html.erb</p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between">
+    <div class="">
+        <% @races.each do |race| %>
+            <%= link_to new_game_boat_path(race), class:"text-decoration-none" do %>
+                <div class="cards">
+                    <%= race.name %>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+    <div style="width: 100%; height: 600px;"
+      data-controller="map"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
 
-<div style="width: 100%; height: 600px;"
-  data-controller="map"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+
 </div>
