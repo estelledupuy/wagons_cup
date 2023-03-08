@@ -2,6 +2,20 @@
 # yarn lockfile v1
 
 
+"@aerisweather/javascript-sdk@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@aerisweather/javascript-sdk/-/javascript-sdk-1.8.0.tgz#59bebcf378077e496498033d7d39c2c066fa6eb8"
+  integrity sha512-kRp9nwQzfp2q0upkork64t9baMriF3oH1ZV2wwCU3K5nuBqccuwqE5cDM7/xW2OVGYZlaxCIWN6qY5ijZ5BQlA==
+  dependencies:
+    axios "^0.21.0"
+    date-fns "^2.10.0"
+    domtastic "^0.15.9"
+
+"@aerisweather/mapsgl@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@aerisweather/mapsgl/-/mapsgl-1.1.2.tgz#460e2e9fab333dc307920f8c99c2b0e8b878ca35"
+  integrity sha512-gOD/rc017Q8cjx/0sWfkTMPS6mQu5If+9/5UDbK0OYXGdM9xdFSgWWV0/8DoiQ7T9iTMQ/nDoWZmZTEp3L6zNQ==
+
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
@@ -282,6 +296,13 @@ ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+axios@^0.21.0:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
 bootstrap@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.3.tgz#54739f4414de121b9785c5da3c87b37ff008322b"
@@ -344,6 +365,16 @@ cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+date-fns@^2.10.0:
+  version "2.29.3"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
+  integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
+
+domtastic@^0.15.9:
+  version "0.15.12"
+  resolved "https://registry.yarnpkg.com/domtastic/-/domtastic-0.15.12.tgz#3f7af442c863343e74b156ab69ed0d9e5042c1d6"
+  integrity sha512-znCwbb9ihRcIglgOgTmgsJIXkzVwEMdOC9AutZX2XjZz+rtW631BlDDd3BnmLY2aI5YCDzgwVak5i1ud25MIfw==
 
 electron-to-chromium@^1.4.284:
   version "1.4.320"
@@ -425,6 +456,11 @@ find-up@^4.0.0:
   dependencies:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
+
+follow-redirects@^1.14.0:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
+  integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
 function-bind@^1.1.1:
   version "1.1.1"
