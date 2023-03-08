@@ -1,0 +1,22 @@
+.card-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.card-scroll {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: top;
+  width: 300px; /* Largeur fixe pour chaque carte */
+}
+
+.effet {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.effet:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}

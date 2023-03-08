@@ -12,8 +12,7 @@ export default class extends Controller {
     this.map = new mapboxgl.Map({
       container: this.element,
       style: 'mapbox://styles/mapbox/satellite-v9',
-      center: [-122.486052, 37.830348],
-      zoom: 14
+      zoom: 0
     })
 
     // this._draw_animated_line();
@@ -59,7 +58,7 @@ export default class extends Controller {
 
   async _draw_animated_line() {
     const response = await fetch(
-      `/races/1/coordinates`
+      `/races/19/coordinates`
     );
     const data = await response.json();
     this.map.on('load', () => {
@@ -93,6 +92,8 @@ export default class extends Controller {
         }
       });
 
+      console.log(coordinates[0])
+
       // setup the viewport
       this.map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
       this.map.setPitch(30);
@@ -108,7 +109,7 @@ export default class extends Controller {
         } else {
           window.clearInterval(timer);
         }
-      }, 100);
+      }, 1000);
     });
   }
 }
