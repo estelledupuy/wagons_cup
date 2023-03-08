@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     member do
       get '/coordinates', to: "races#coordinates"
     end
+    resources :boats, only: %i[new create]
   end
-  resources :boats, only: %i[new create]
+
   resources :games, only: [:new] do
     resources :boats, only: %i[update]
   end

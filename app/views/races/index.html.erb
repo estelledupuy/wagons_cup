@@ -3,7 +3,7 @@
     <div class="card-container">
         <% @races.each do |race| %>
           <div class="card-scroll">
-              <%= link_to new_boat_path, class:"text-decoration-none" do %>
+              <%= link_to new_race_boat_path(race), class:"text-decoration-none" do %>
                   <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= race.photo %>)">
                     <%= race.name %>
                   </div>
