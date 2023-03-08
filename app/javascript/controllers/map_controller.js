@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import * as mapsgl from '@aerisweather/mapsgl';
+// import '@aerisweather/mapsgl/dist/mapsgl.css';
 
 // Connects to data-controller="map"
 export default class extends Controller {
@@ -16,8 +18,52 @@ export default class extends Controller {
     })
 
     // this._draw_animated_line();
-    this._draw_animated_line();
+    // this._draw_animated_line();
+
+    /**
+    * Set up your AerisWeather account and access keys for the SDK.
+    */
+      const account = new mapsgl.Account('ajSbJ6HievVrxAMvSz7LN', '8bPBpxyKobloYxkxKOJulsqbm3zr4DmmGjpIGTdy');
+
+      /**
+      * Create a map controller that corresponds to the selected mapping library, passing in
+      * your `map` and `account` instances.
+      */
+      const controller = new mapsgl.MapboxMapController(this.map, { account });
+
+      /**
+      * Add functionality and data to your map once the controller's `load` event has been triggered.
+      */
+      controller.on('load', () => {
+          // do stuff, like add weather layers
+          //controller.addWeatherLayer('temperatures');
+          // controller.addWeatherLayer('dew-points');
+          controller.addWeatherLayer('wind-particles');
+
+          const options = {
+            type: 'move'
+          }
+
+          controller.addDataInspectorControl(options)
+      });
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   async _draw_line() {
     const response = await fetch(`/races/1/coordinates`)
@@ -56,9 +102,9 @@ export default class extends Controller {
     });
   }
 
-  async _draw_animated_line() {
+  async _draw_animated_line(id) {
     const response = await fetch(
-      `/races/19/coordinates`
+      `/races/${id}/coordinates`
     );
     const data = await response.json();
     this.map.on('load', () => {
