@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between">
     <div class="">
         <% @races.each do |race| %>
-            <%= link_to new_game_boat_path(race), class:"text-decoration-none" do %>
+            <%= link_to new_race_boat_path(race), class:"text-decoration-none" do %>
                 <div class="cards">
                     <%= race.name %>
                 </div>

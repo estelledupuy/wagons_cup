@@ -1,16 +1,17 @@
 class BoatsController < ApplicationController
   def new
     @boat = Boat.new
+    @race = Race.find(params[:race_id])
   end
 
   def create
-    @boat = Boat.new(boat_params)
     @game = Game.new
+    @game.race_id = params[:race_id]
+    @boat = Boat.new(boat_params)
     @boat.game = @game
-    raise
     if @boat.save!
-      redirect_to home_path
-      # route to be changed
+      redirect_to races_path
+      # route to be changed !!!
     else
       render :new, status: :unprocessable_entity
     end
