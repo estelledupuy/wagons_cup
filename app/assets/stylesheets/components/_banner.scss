@@ -14,7 +14,8 @@
 .main-title {
   color: white;
   margin-left: 504px;
-  font-size: 50px;
+  font-size: 60px;
+  padding-top: 150px;
 }
 
 .wave {
@@ -42,8 +43,14 @@
   height: 30px;
   position: absolute;
   left: 1240px;
-  top: 1058px;
-  z-index: 2;
+  top: 1157px;
+}
+
+.arrow {
+  position: absolute;
+  height: 735px;
+  right: 0;
+  top: 90px;
 }
 
 // .banner h1 {

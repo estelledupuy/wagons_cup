@@ -1,11 +1,14 @@
 .btn-primary {
     color: white;
     border-radius: 58px;
-    padding: 5px 40px 5px 40px;
+    padding: 10px 50px 10px 50px;
     font-size: 20px;
+    font-weight: bold;
 }
 
 .main-btn {
-  margin-left: 889px;
-  margin-top: 154px;
+  margin-left: 945px;
+  margin-top: 92px;
+  position: relative;
+  z-index: 1;
 }
