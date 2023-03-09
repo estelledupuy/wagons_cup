@@ -1,0 +1,51 @@
+
+.card-pimp {
+  background-size: cover;
+  background-position: center;
+  background-color: #0A6260;
+  height: 350px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.name-boat {
+  border: solid #CC8B65;
+  border-radius: 143px;
+  padding-left: 10px;
+}
+
+.lemon {
+  width: 20px;
+height: 20px;
+background: #F3D66D;
+display: inline-block;
+border-radius: 50%;
+}
+
+.navy {
+  width: 20px;
+  height: 20px;
+  background: #395DB9;
+  display: inline-block;
+  border-radius: 50%;
+  }
+
+.poppy {
+  width: 20px;
+  height: 20px;
+  background: #B93939;
+  border-radius: 50%;
+  }
+.color-boat .title {
+  width: auto;
+}
