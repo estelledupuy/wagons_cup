@@ -1,23 +1,76 @@
 import { Controller } from "@hotwired/stimulus"
+import * as mapsgl from '@aerisweather/mapsgl';
+// import '@aerisweather/mapsgl/dist/mapsgl.css';
 
 // Connects to data-controller="map"
 export default class extends Controller {
+  static targets = ['map']
+
   static values = {
     apiKey: String,
+    clientId: String,
+    clientSecret: String,
   }
 
   connect() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZ3dlbm9sYWRsdiIsImEiOiJjbGR5a3p2ZHcwcGk4M29vYXFwYmFud29sIn0.08C-MI7cVgVER-64a0WO3w'
+    mapboxgl.accessToken = this.apiKeyValue
+    console.log(this.mapTarget)
+    console.log(this.clientIdValue)
+    console.log(this.clientSecretValue)
 
     this.map = new mapboxgl.Map({
-      container: this.element,
+      container: this.mapTarget,
       style: 'mapbox://styles/mapbox/satellite-v9',
       zoom: 0
     })
 
-    // this._draw_animated_line();
-    this._draw_animated_line();
+      // this._draw_animated_line();
+      // this._draw_animated_line();
+
+      /**
+      * Set up your AerisWeather account and access keys for the SDK.
+      */
+      const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
+
+      /**
+      * Create a map controller that corresponds to the selected mapping library, passing in
+      * your `map` and `account` instances.
+      */
+      const controller = new mapsgl.MapboxMapController(this.map, { account });
+
+      /**
+      * Add functionality and data to your map once the controller's `load` event has been triggered.
+      */
+      controller.on('load', () => {
+          // do stuff, like add weather layers
+          //controller.addWeatherLayer('temperatures');
+          // controller.addWeatherLayer('dew-points');
+          controller.addWeatherLayer('wind-particles');
+
+          const options = {
+            type: 'move'
+          }
+
+          controller.addDataInspectorControl(options)
+      });
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   async _draw_line() {
     const response = await fetch(`/races/1/coordinates`)
@@ -58,7 +111,7 @@ export default class extends Controller {
 
   async _draw_animated_line() {
     const response = await fetch(
-      `/races/19/coordinates`
+      `/races/${id}/coordinates`
     );
     const data = await response.json();
     this.map.on('load', () => {
