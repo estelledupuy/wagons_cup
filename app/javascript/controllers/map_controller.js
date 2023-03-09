@@ -4,26 +4,33 @@ import * as mapsgl from '@aerisweather/mapsgl';
 
 // Connects to data-controller="map"
 export default class extends Controller {
+  static targets = ['map']
+
   static values = {
     apiKey: String,
+    clientId: String,
+    clientSecret: String,
   }
 
   connect() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZ3dlbm9sYWRsdiIsImEiOiJjbGR5a3p2ZHcwcGk4M29vYXFwYmFud29sIn0.08C-MI7cVgVER-64a0WO3w'
+    mapboxgl.accessToken = this.apiKeyValue
+    console.log(this.mapTarget)
+    console.log(this.clientIdValue)
+    console.log(this.clientSecretValue)
 
     this.map = new mapboxgl.Map({
-      container: this.element,
+      container: this.mapTarget,
       style: 'mapbox://styles/mapbox/satellite-v9',
       zoom: 0
     })
 
-    // this._draw_animated_line();
-    // this._draw_animated_line();
+      // this._draw_animated_line();
+      // this._draw_animated_line();
 
-    /**
-    * Set up your AerisWeather account and access keys for the SDK.
-    */
-      const account = new mapsgl.Account('ajSbJ6HievVrxAMvSz7LN', '8bPBpxyKobloYxkxKOJulsqbm3zr4DmmGjpIGTdy');
+      /**
+      * Set up your AerisWeather account and access keys for the SDK.
+      */
+      const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
 
       /**
       * Create a map controller that corresponds to the selected mapping library, passing in
@@ -102,7 +109,7 @@ export default class extends Controller {
     });
   }
 
-  async _draw_animated_line(id) {
+  async _draw_animated_line() {
     const response = await fetch(
       `/races/${id}/coordinates`
     );
