@@ -10,18 +10,19 @@ export default class extends Controller {
     apiKey: String,
     clientId: String,
     clientSecret: String,
+    idRaceValue: Number,
   }
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
-    console.log(this.mapTarget)
-    console.log(this.clientIdValue)
-    console.log(this.clientSecretValue)
+
+    // this.clearRoute = false;
 
     this.map = new mapboxgl.Map({
       container: this.mapTarget,
       style: 'mapbox://styles/mapbox/satellite-v9',
-      zoom: 0
+      center: [2.3488, 48.85341],
+      zoom: 0,
     })
 
       // this._draw_animated_line();
@@ -30,45 +31,31 @@ export default class extends Controller {
       /**
       * Set up your AerisWeather account and access keys for the SDK.
       */
-      const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
+      // const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
 
-      /**
-      * Create a map controller that corresponds to the selected mapping library, passing in
-      * your `map` and `account` instances.
-      */
-      const controller = new mapsgl.MapboxMapController(this.map, { account });
+      // /**
+      // * Create a map controller that corresponds to the selected mapping library, passing in
+      // * your `map` and `account` instances.
+      // */
+      // const controller = new mapsgl.MapboxMapController(this.map, { account });
 
-      /**
-      * Add functionality and data to your map once the controller's `load` event has been triggered.
-      */
-      controller.on('load', () => {
-          // do stuff, like add weather layers
-          //controller.addWeatherLayer('temperatures');
-          // controller.addWeatherLayer('dew-points');
-          controller.addWeatherLayer('wind-particles');
+      // /**
+      // * Add functionality and data to your map once the controller's `load` event has been triggered.
+      // */
+      // controller.on('load', () => {
+      //     // do stuff, like add weather layers
+      //     //controller.addWeatherLayer('temperatures');
+      //     // controller.addWeatherLayer('dew-points');
+      //     controller.addWeatherLayer('wind-particles');
 
-          const options = {
-            type: 'move'
-          }
+      //     const options = {
+      //       type: 'move'
+      //     }
 
-          controller.addDataInspectorControl(options)
-      });
+      //     controller.addDataInspectorControl(options)
+      // });
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -109,12 +96,23 @@ export default class extends Controller {
     });
   }
 
-  async _draw_animated_line() {
+  async draw_animated_line(evt) {
+    this.clearRoute = true;
+    if (this.map.getLayer('trace')) {
+      this.map.removeLayer('trace');
+    }
+    if (this.map.getSource('trace')) {
+      this.map.removeSource('trace');
+    }
+    console.log(evt.params.raceId.race_id);
+    this.clearRoute = false;
+
     const response = await fetch(
-      `/races/${id}/coordinates`
+      `/races/${evt.params.raceId.race_id}/coordinates`
     );
     const data = await response.json();
-    this.map.on('load', () => {
+    console.log(data);
+    //this.map.on('load', () => {
       // We fetch the JSON here so that we can parse and use it separately
       // from GL JS's use in the added source.
       // save full coordinate list for later
@@ -130,6 +128,8 @@ export default class extends Controller {
           }
         }]
       }
+
+      console.log(coordinates);
       // // start by showing just the first coordinate
       geojson.features[0].geometry.coordinates = [coordinates[0]];
       // // add it to the map
@@ -148,21 +148,25 @@ export default class extends Controller {
       console.log(coordinates[0])
 
       // setup the viewport
-      this.map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
+      this.map.jumpTo({ 'center': coordinates[0], 'zoom': 0 });
       this.map.setPitch(30);
 
       // on a regular basis, add more coordinates from the saved list and update the map
       let i = 0;
-      const timer = setInterval(() => {
+      this.timer = setInterval(() => {
         if (i < coordinates.length) {
         geojson.features[0].geometry.coordinates.push(coordinates[i]);
           this.map.getSource('trace').setData(geojson);
           this.map.panTo(coordinates[i]);
-          i++;
+          this.clearRoute ? window.clearInterval(this.timer) : i++;
         } else {
-          window.clearInterval(timer);
+          window.clearInterval(this.timer);
         }
-      }, 1000);
-    });
+      }, 50);
+    //});
+  }
+
+  clearIntervalle() {
+    window.clearInterval(this.timer)
   }
 }

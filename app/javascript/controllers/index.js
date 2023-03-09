@@ -4,9 +4,11 @@
 
 import { application } from "./application"
 
+import BoatSelectController from "./boat_select_controller"
+application.register("boat-select", BoatSelectController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-
 
 import MapController from "./map_controller"
 application.register("map", MapController)

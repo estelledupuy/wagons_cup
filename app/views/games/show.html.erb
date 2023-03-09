@@ -1,0 +1,10 @@
+<h1>GAME STARTED</h1>
+<p>Show chrono</p>
+
+
+<h2>boat direction: choose an integer between 1 and 10</h2>
+<% @boat = Boat.find(params[:boat_id]) %>
+<%= simple_form_for(@boat) do |f| %>
+<%= f.input :direction %>
+<%= f.submit %>
+<% end %>
