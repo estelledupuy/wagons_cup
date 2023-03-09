@@ -21,7 +21,7 @@
             <% @races.each do |race| %>
               <div class="card-scroll">
                   <div class="">
-                      <%= link_to new_race_boat_path(race), class:"text-decoration-none" do %>
+                      <%= link_to new_race_boat_path(race), class:"text-decoration-none", data: { action: "mouseenter->map#draw_animated_line mouseleave->map#clearIntervalle", map_race_id_param: { race_id: race.id }} do %>
                         <div class="front-face">
                             <div class="card-category effet" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= race.photo %>)">
                                 <%= race.name %>
