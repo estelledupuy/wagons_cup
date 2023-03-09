@@ -1,21 +1,39 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between">
-    <div class="card-container">
-        <% @races.each do |race| %>
-          <div class="card-scroll">
-              <%= link_to new_race_boat_path(race), class:"text-decoration-none" do %>
-                  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= race.photo %>)">
-                    <%= race.name %>
-                  </div>
-              <% end %>
+<div class="background">
+  <div class="card-beige">
+      <div class="d-flex justify-content-between">
+          <div>
+              <%= link_to root_path do %>
+                <svg class="btn-retour" xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 62 62" fill="none">
+                    <rect width="62" height="62" rx="10" fill="#E29578"/>
+                    <path d="M14.7282 31.522C13.4894 30.7385 13.4862 28.9327 14.7223 28.1449L36.7915 14.0814C38.1216 13.2338 39.8636 14.1874 39.8663 15.7646L39.9151 43.8149C39.9178 45.3921 38.1791 46.3517 36.8461 45.5087L14.7282 31.522Z" fill="white"/>
+                </svg>
+              <%end %>
           </div>
-        <% end %>
-    </div>
-    <div id="map" style="width: 100%; height: 600px;"
-      data-controller="map"
-      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    </div>
-
+          <div class="banner-titre text-align-center">
+              <h2 class="">Select your race</h2>
+          </div>
+          <div class="">
+              <img class="avatar-bordered" alt="avatar-bordered" src="https://kitt.lewagon.com/placeholder/users/sarahlafer" />
+          </div>
+      </div>
+      <div class="d-flex justify-content-between race-selector" data-controller="map" data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>" data-map-client-id-value="<%= ENV["CLIENT_ID"] %>" data-map-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
+        <div class="card-scrolling">
+            <% @races.each do |race| %>
+              <div class="card-scroll">
+                  <div class="">
+                      <%= link_to new_race_boat_path(race), class:"text-decoration-none" do %>
+                        <div class="front-face">
+                            <div class="card-category effet" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= race.photo %>)">
+                                <%= race.name %>
+                            </div>
+                        </div>
+                      <% end %>
+                  </div>
+              </div>
+            <% end %>
+        </div>
+        <div id="map" data-map-target="map" style="width: 100%; height: 600px; padding-top: 9px;">
+        </div>
+      </div>
   </div>
-
 </div>
