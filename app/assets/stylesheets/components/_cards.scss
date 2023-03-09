@@ -19,7 +19,7 @@
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 160px;
 }
 
 // Smallest device
@@ -57,26 +57,28 @@
   }
 }
 
-.card-trip {
+ .card-trip {
   overflow: hidden;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 15px;
+
 }
 
 .card-trip > img {
-  height: 200px;
+  height: 190px;
   width: 100%;
   object-fit: cover;
 }
 
 .card-trip h2 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   margin: 0;
 }
 
 .card-trip p {
-  font-size: 12px;
+  font-size: 16px;
   opacity: .7;
   margin: 0;
 }
@@ -87,4 +89,5 @@
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
+  text-align: center;
 }
