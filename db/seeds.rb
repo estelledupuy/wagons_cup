@@ -16,7 +16,7 @@ Boat.create(name: "Speed Geoffroy", color: "red", sail_position: 0, score: 0)
 
 puts 'Creating 3 fake races...'
 
-r1 = Race.new(name: "Brest - Valparaíso", starting_latitude: 48.3905283, starting_longitude: -4.4860088, ending_latitude: -32.78446, ending_longitude: -74.2037)
+r1 = Race.new(name: "Brest - Valparaíso", starting_latitude: 48.3905283, starting_longitude: -4.4860088, ending_latitude: -32.78446, ending_longitude: -74.2037, duration: 5, difficulty: 1, photo: "https://media.istockphoto.com/id/924568342/fr/photo/paysage-urbain-de-la-ville-historique-valparaiso.jpg?s=612x612&w=0&k=20&c=HAkcKWFd9UR-4FLGyq1DWuNOoRPgg-CE4De4Ny5Vh5w=" )
 
 coordinates_1.each do |coordinates|
   r1.coordinates << coordinates
