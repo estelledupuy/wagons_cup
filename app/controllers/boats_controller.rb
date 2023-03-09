@@ -20,6 +20,10 @@ class BoatsController < ApplicationController
   def update
   end
 
+  def select
+    render json: { url: Boat.image_urls(params[:color]) }
+  end
+
   private
 
   def boat_params

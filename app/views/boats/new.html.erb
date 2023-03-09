@@ -1,35 +1,36 @@
-<div id="banner">
-
-  <div id="beige_box">
-
-    <div id="white-box" class="d-flex">
-
+<div class="background">
+  <div class="card-beige">
+    <div class="d-flex justify-content-between">
       <div>
-        <div>
-          <img src="" alt="">
-        </div>
-        <div>
-          <img src="" alt="">
-        </div>
+        <%= link_to root_path do %>
+          <svg class="btn-retour" xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 62 62" fill="none">
+            <rect width="62" height="62" rx="10" fill="#E29578"/>
+            <path d="M14.7282 31.522C13.4894 30.7385 13.4862 28.9327 14.7223 28.1449L36.7915 14.0814C38.1216 13.2338 39.8636 14.1874 39.8663 15.7646L39.9151 43.8149C39.9178 45.3921 38.1791 46.3517 36.8461 45.5087L14.7282 31.522Z" fill="white"/>
+          </svg>
+        <% end %>
       </div>
 
-      <div>
-        <h1>Pimp your boat</h1>
-        <div class= "card-pimp">
-
-
-          <%= simple_form_for [@race, @boat] do |f| %>
-            <%= f.input :name, input_html: { class: "name-boat" } %>
-
-            <%= f.input :color, collection: ['poppy', 'lemon', 'navy'],
-                        as: :radio_buttons, label_method: lambda { |item| render "label", item: item } %>
-          <% end %>
-
-        </div>
+      <div class="banner-titre text-align-center">
+          <h2 class="">Pimp your boat</h2>
       </div>
 
+      <div class="">
+        <img class="avatar-bordered" alt="avatar-bordered" src="https://kitt.lewagon.com/placeholder/users/sarahlafer" />
+      </div>
     </div>
+        <div class="d-flex boat-picture" data-controller="boat-select">
+          <img data-boat-select-target="img", style="height: 450px", src="https://res.cloudinary.com/dwclozjta/image/upload/v1678372133/bateau_poppy_kqqsnl.png" alt="">
+          <div class="card-pimp mt-">
+            <%= simple_form_for [@race, @boat] do |f| %>
+              <%= f.input :name, input_html: { class: "name-boat" } , placeholder: "Name your boat"%>
 
+              <%= f.input :color, collection: ['Poppy', 'Lemon', 'Navy'],
+                          as: :radio_buttons, label_method: lambda { |item| render "label", item: item },
+                          input_html: { data: { action: "change->boat-select#update" } } %>
+
+              <%= f.submit :Start, class: "btn btn-primary btn-form" %>
+            <% end %>
+          </div>
+        </div>
   </div>
-
 </div>
