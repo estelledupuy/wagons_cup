@@ -34,7 +34,10 @@ class BoatsController < ApplicationController
     @boat.save!
   end
 
-  # latitude: 48.649518, longitude: -2.0260409 // 48.649518
+  def select
+    render json: { url: Boat.image_urls(params[:color]) }
+  end
+
 
   private
 

@@ -1,0 +1,70 @@
+.card-pimp {
+  background-size: cover;
+  background-position: center;
+  background-color: #0A6260;
+  height: 420px;
+  width: 340px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.name-boat {
+  border: solid #CC8B65;
+  border-radius: 143px;
+  padding-left: 10px;
+  background-color: $beige ;
+}
+
+#boat_color_lemon {
+background-color: #F3D66D;
+}
+
+#boat_color_lemon:checked {
+  background-color: #F3D66D;
+  border-color: yellow;
+}
+
+#boat_color_navy {
+  background-color: #395DB9;
+  }
+
+#boat_color_navy:checked {
+  background-color: #395DB9;
+  border-color: blue;
+}
+
+#boat_color_poppy {
+  background-color: #B93939;
+  }
+
+#boat_color_poppy:checked {
+  background-color: #B93939;
+  border-color: red;
+}
+
+.color-boat .title {
+  width: auto;
+}
+
+.boat-picture {
+  justify-content: space-around;
+  padding-top: 73px;
+}
+
+.boat-picture .btn-form {
+  margin-left: 6px;
+  padding-left: 65px;
+  padding-right: 65px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
