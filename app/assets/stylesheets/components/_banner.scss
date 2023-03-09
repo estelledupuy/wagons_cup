@@ -1,29 +1,78 @@
 .banner {
   background-size: cover;
-  background-position: center;
-  padding: 150px 0;
+  height: 700px;
+  background-color: #0A6260;
 }
 
-.banner h1 {
-  margin: 0;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.banner p {
-  font-size: 20px;
-  color: white;
-  opacity: .7;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-}
-
-.map {
-  width: 448px;
-  height: 339px;
-  border-radius: 491px;
+.boat {
+  height: 385px;
   position: absolute;
-  top: -96px;
-  left: -274px;
+  left: 257px;
+  top: 383px;
 }
+
+.main-title {
+  color: white;
+  margin-left: 504px;
+  font-size: 60px;
+  padding-top: 150px;
+}
+
+.wave {
+  height: 37px;
+}
+
+.section-2 {
+  background-color: #EDE9D5;
+}
+
+.gouvernail {
+  height: 260px;
+  text-align: right;
+  position: absolute;
+  left: 1415px;
+  top: 780px;
+}
+
+.description_home {
+  margin-right: 220px;
+  padding-top: 30px;
+}
+
+.underline {
+  height: 30px;
+  position: absolute;
+  left: 1240px;
+  top: 1157px;
+}
+
+.arrow {
+  position: absolute;
+  height: 735px;
+  right: 0;
+  top: 90px;
+}
+
+// .banner h1 {
+//   margin: 0;
+//   color: white;
+//   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+//   font-size: 32px;
+//   font-weight: bold;
+// }
+
+// .banner p {
+//   font-size: 20px;
+//   color: white;
+//   opacity: .7;
+//   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+// }
+
+// .map {
+//   width: 448px;
+//   height: 339px;
+//   border-radius: 491px;
+//   position: absolute;
+//   top: -96px;
+//   left: -274px;
+// }
