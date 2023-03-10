@@ -22,6 +22,7 @@ export default class extends Controller {
       container: this.mapTarget,
       style: 'mapbox://styles/mapbox/satellite-v9',
       center: [2.3488, 48.85341],
+      trackResize: false,
       zoom: 0,
     })
 
@@ -104,14 +105,12 @@ export default class extends Controller {
     if (this.map.getSource('trace')) {
       this.map.removeSource('trace');
     }
-    console.log(evt.params.raceId.race_id);
     this.clearRoute = false;
 
     const response = await fetch(
       `/races/${evt.params.raceId.race_id}/coordinates`
     );
     const data = await response.json();
-    console.log(data);
     //this.map.on('load', () => {
       // We fetch the JSON here so that we can parse and use it separately
       // from GL JS's use in the added source.
@@ -129,9 +128,10 @@ export default class extends Controller {
         }]
       }
 
-      console.log(coordinates);
       // // start by showing just the first coordinate
       geojson.features[0].geometry.coordinates = [coordinates[0]];
+
+      console.log(this.map.getStyle());
       // // add it to the map
       this.map.addSource('trace', { type: 'geojson', data: geojson });
       this.map.addLayer({
@@ -145,11 +145,9 @@ export default class extends Controller {
         }
       });
 
-      console.log(coordinates[0])
-
       // setup the viewport
-      this.map.jumpTo({ 'center': coordinates[0], 'zoom': 0 });
-      this.map.setPitch(30);
+      // this.map.jumpTo({ 'center': coordinates[0], 'zoom': 0 });
+      // this.map.setPitch(30);
 
       // on a regular basis, add more coordinates from the saved list and update the map
       let i = 0;

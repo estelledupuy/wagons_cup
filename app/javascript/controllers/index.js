@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import MapController from "./map_controller"
 application.register("map", MapController)
+
+import MapGameController from "./map_game_controller"
+application.register("map-game", MapGameController)
