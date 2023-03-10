@@ -26,12 +26,9 @@ class BoatsController < ApplicationController
 
   def update
     @boat = Boat.find(params[:id])
-    @direction = params[:boat][:direction]
-
-    @boat.latitude = ComputeNewPosition.new(@boat, @direction).call[0] #Get param from user decision
-    @boat.longitude = ComputeNewPosition.new(@boat, @direction).call[1]
-    @boat.direction = @direction
-    @boat.save!
+    @boat.update(direction: params[:boat][:direction])
+    ComputePositionJob.perform_later(params[:id])
+    redirect_to game_path(@boat.game)
   end
 
   def select

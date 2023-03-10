@@ -7,7 +7,7 @@ class ComputeNewPosition
     end
 
     def call
-      time_interval = 10.fdiv(60) # in hours
+      time_interval = 1.fdiv(60) # inputs in minutes, output in hours
       wind_dir = 109 #info extracted from API, in degrees
       adj_coeff = 2 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
       wind_speed = 5.75 #info extracted from API, in MPH
