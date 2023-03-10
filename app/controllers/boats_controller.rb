@@ -38,7 +38,6 @@ class BoatsController < ApplicationController
     render json: { url: Boat.image_urls(params[:color]) }
   end
 
-
   private
 
   def boat_params
