@@ -9,7 +9,7 @@ class ComputeNewPosition
     def call
       time_interval = 1.fdiv(60) # inputs in minutes, output in hours
       wind_dir = 109 #info extracted from API, in degrees
-      adj_coeff = 2 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
+      adj_coeff = 150 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
       wind_speed = 5.75 #info extracted from API, in MPH
       # boat_speed = allure-derived coeff * wind_speed
       # DIRECTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] avec 1: vent debout (0°), 2 & 10: Près (45°); 3 & 9: Bon près (60°);
