@@ -151,8 +151,10 @@ export default class extends Controller {
     this.map.on('load', () => {
       this.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
       // setup the viewport
-      this.map.jumpTo({ 'center': [this.boatLongitudeValue, this.boatLatitudeValue] , 'zoom': 3 });
-      // this.map.setPitch(30);
+      setTimeout(() => {
+        this.map.jumpTo({ 'center': [this.boatLongitudeValue, this.boatLatitudeValue] , 'zoom': 3 });
+        // this.map.setPitch(30);
+      }, 2000)
 
       this.map.addSource('dot-point', {
         'type': 'geojson',
