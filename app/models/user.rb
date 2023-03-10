@@ -4,4 +4,6 @@ class User < ApplicationRecord
   has_many :boats
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
+
+    
 end
