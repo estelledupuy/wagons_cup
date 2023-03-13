@@ -34,7 +34,7 @@ gem "cloudinary"
 # Sidekiq, for background jobs
 gem "sidekiq", "~> 6.0"
 gem "sidekiq-failures", "~> 1.0"
-# gem 'sidekiq-scheduler', '~> 1'
+gem 'sidekiq-scheduler'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
