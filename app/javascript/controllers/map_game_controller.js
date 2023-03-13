@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import * as mapsgl from '@aerisweather/mapsgl';
+import { createConsumer } from "@rails/actioncable"
 // import '@aerisweather/mapsgl/dist/mapsgl.css';
 
 // Connects to data-controller="map"
@@ -11,10 +12,16 @@ export default class extends Controller {
     clientSecret: String,
     boatLongitude: Number,
     boatLatitude: Number,
+    boatId: Number,
   }
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
+    this.channel = createConsumer().subscriptions.create(
+      { channel: "BoatChannel", id: this.boatIdValue },
+      { received: data => console.log(data) }
+    )
+    console.log(`Subscribe to the chatroom with the id ${this.boatIdValue}.`)
 
     // this.clearRoute = false;
 
