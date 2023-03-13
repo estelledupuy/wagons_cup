@@ -14,6 +14,7 @@ class ComputePositionJob < ApplicationJob
     @boat.save!
     puts "last boat saved #{Boat.last}"
     BoatChannel.broadcast_to(
+      @boat.id,
       @boat
     )
   end
