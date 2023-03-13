@@ -11,6 +11,11 @@ export default class extends Controller {
     clientSecret: String,
     boatLongitude: Number,
     boatLatitude: Number,
+    markerStartLatitude: Number,
+    markerStartLongitude: Number,
+    markerEndingLatitude: Number,
+    markerEndingLongitude: Number,
+    markerEndingIconUrl: String,
     boatId: Number,
   }
 
@@ -42,6 +47,29 @@ export default class extends Controller {
     })
   }
 
+          const options = {
+              type: 'move'
+            }
+          controller.addDataInspectorControl(options)
+        });
+        this.addPointOnMap();
+        this.addMarkerOnMap();
+
+      }
+
+      addMarkerOnMap() {
+        new mapboxgl.Marker()
+          .setLngLat([ this.markerStartLongitudeValue, this.markerStartLatitudeValue ])
+          .addTo(this.map)
+
+        // Create a HTML element for your custom marker
+        const customEndingMarker = document.createElement("img")
+        customEndingMarker.src = this.markerEndingIconUrlValue
+
+        new mapboxgl.Marker(customEndingMarker)
+          .setLngLat([ this.markerEndingLongitudeValue, this.markerEndingLatitudeValue ])
+          .addTo(this.map)
+      }
 
   setAeris() {
     console.log('aeris')
@@ -102,6 +130,7 @@ export default class extends Controller {
 
     this.map.getSource('dot-point').setData(geojson);
   }
+
 
   addPointOnMap() {
     const size = 100;
