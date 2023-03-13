@@ -5,7 +5,6 @@ import { createConsumer } from "@rails/actioncable"
 
 // Connects to data-controller="map"
 export default class extends Controller {
-
   static values = {
     apiKey: String,
     clientId: String,
@@ -25,82 +24,73 @@ export default class extends Controller {
       zoom: 0,
     })
 
-    var that = this
 
-    this.channel = createConsumer().subscriptions.create(
-      { channel: "BoatChannel", id: this.boatIdValue },
-
-      {
-        received(data) {
-          that.map.removeLayer('layer-with-pulsing-dot');
-          that.map.removeSource('dot-point');
-
-          that.map.addSource('dot-point', {
-            'type': 'geojson',
-            'data': {
-              'type': 'FeatureCollection',
-              'features': [
-                {
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'Point',
-                    'coordinates': [data.longitude, data.latitude] // icon position [lng, lat]
-                  }
-                }
-              ]
-            }
-          });
-
-          that.map.addLayer({
-            'id': 'layer-with-pulsing-dot',
-            'type': 'symbol',
-            'source': 'dot-point',
-            'layout': {
-              'icon-image': 'pulsing-dot'
-              }
-          });
-        }
-      }
-    )
-
-
-
-      /**
-      * Set up your AerisWeather account and access keys for the SDK.
-      */
-      const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
-
-      /**
-      * Create a map controller that corresponds to the selected mapping library, passing in
-      * your `map` and `account` instances.
-      */
-      const controller = new mapsgl.MapboxMapController(this.map, { account });
-
-      /**
-      * Add functionality and data to your map once the controller's `load` event has been triggered.
-      */
-      controller.on('load', () => {
-        controller.addWeatherLayer('wind-particles', {
-          paint: {
-              particle: {
-                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
-                  size: 1,
-                  speed: 1,
-                  trailsFade: 0.93,
-                  dropRate: 0.005
-                }
-              }
-          });
-
-          const options = {
-              type: 'move'
-            }
-          controller.addDataInspectorControl(options)
-       });
+    this.setCable();
+    this.setAeris();
 
     this.map.on('load', () => {
       this.addPointOnMap();
     })
+  }
+
+  setAeris() {
+    console.log('aeris')
+    /**
+    * Set up your AerisWeather account and access keys for the SDK.
+    */
+     const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
+
+     /**
+     * Create a map controller that corresponds to the selected mapping library, passing in
+     * your `map` and `account` instances.
+     */
+     const controller = new mapsgl.MapboxMapController(this.map, { account });
+
+     /**
+     * Add functionality and data to your map once the controller's `load` event has been triggered.
+     */
+     controller.on('load', () => {
+       controller.addWeatherLayer('wind-particles', {
+         paint: {
+             particle: {
+                 count: Math.pow(150, 2), // using a power of two, e.g. 65536
+                 size: 1,
+                 speed: 1,
+                 trailsFade: 0.93,
+                 dropRate: 0.005
+               }
+             }
+         });
+
+      const options = {
+        type: 'move'
+      }
+
+      controller.addDataInspectorControl(options)
+    });
+  }
+
+  setCable() {
+    this.channel = createConsumer().subscriptions.create(
+      { channel: "BoatChannel", id: this.boatIdValue },
+      { received: this.updateGeoJson.bind(this) }
+    )
+  }
+
+  updateGeoJson(data) {
+    const coordinates = [data.longitude, data.latitude]
+    const geojson = {
+      'type': 'FeatureCollection',
+      'features': [{
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': coordinates
+        }
+      }]
+    }
+
+    this.map.getSource('dot-point').setData(geojson);
   }
 
   addPointOnMap() {
