@@ -4,6 +4,7 @@ class ComputePositionJob < ApplicationJob
   def perform(id)
     @boat = Boat.find(id)
     direction = @boat.direction
+    @boat.trace << [@boat.longitude, @boat.latitude]
     puts "direction #{direction}"
     @boat.latitude = ComputeNewPosition.new(@boat, direction).call[0] #Get param from user decision
     puts "latitude #{@boat.latitude}"
@@ -12,5 +13,8 @@ class ComputePositionJob < ApplicationJob
     @boat.direction = direction
     @boat.save!
     puts "last boat saved #{Boat.last}"
+    BoatChannel.broadcast_to(
+      @boat
+    )
   end
 end

@@ -9,3 +9,8 @@
   - mailers
   - active_storage_analysis
   - active_storage_purge
+:scheduler:
+  :schedule:
+    position_review:
+      every: 10s #runs every 10 sec
+      class: ComputeAllPositionsJob
