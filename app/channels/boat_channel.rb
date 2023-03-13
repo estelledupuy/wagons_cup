@@ -3,8 +3,4 @@ class BoatChannel < ApplicationCable::Channel
     boat = Boat.find(params[:id])
     stream_for boat
   end
-
-  def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
-  end
 end

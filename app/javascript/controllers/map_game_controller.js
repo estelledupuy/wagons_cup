@@ -17,13 +17,6 @@ export default class extends Controller {
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
-    this.channel = createConsumer().subscriptions.create(
-      { channel: "BoatChannel", id: this.boatIdValue },
-      { received: data => console.log(data) }
-    )
-    console.log(`Subscribe to the chatroom with the id ${this.boatIdValue}.`)
-
-    // this.clearRoute = false;
 
     this.map = new mapboxgl.Map({
       container: this.element,
@@ -31,6 +24,44 @@ export default class extends Controller {
       center: [2.3488, 48.85341],
       zoom: 0,
     })
+
+    var that = this
+
+    this.channel = createConsumer().subscriptions.create(
+      { channel: "BoatChannel", id: this.boatIdValue },
+
+      {
+        received(data) {
+          that.map.removeLayer('layer-with-pulsing-dot');
+          that.map.removeSource('dot-point');
+
+          that.map.addSource('dot-point', {
+            'type': 'geojson',
+            'data': {
+              'type': 'FeatureCollection',
+              'features': [
+                {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [data.longitude, data.latitude] // icon position [lng, lat]
+                  }
+                }
+              ]
+            }
+          });
+
+          that.map.addLayer({
+            'id': 'layer-with-pulsing-dot',
+            'type': 'symbol',
+            'source': 'dot-point',
+            'layout': {
+              'icon-image': 'pulsing-dot'
+              }
+          });
+        }
+      }
+    )
 
 
 
@@ -51,18 +82,6 @@ export default class extends Controller {
       controller.on('load', () => {
         controller.addWeatherLayer('wind-particles', {
           paint: {
-              // sample: {
-              //     colorscale: {
-              //         normalized: true,
-              //         stops: [
-              //             0, '#f5f5f5',
-              //             0.25, '#f5f5f5',
-              //             0.5, '#f5f5f5',
-              //             0.75, '#f5f5f5',
-              //             1, '#f5f5f5',
-              //           ]
-              //         }
-              //     },
               particle: {
                   count: Math.pow(150, 2), // using a power of two, e.g. 65536
                   size: 1,
@@ -78,15 +97,17 @@ export default class extends Controller {
             }
           controller.addDataInspectorControl(options)
        });
-    this.addPointOnMap();
 
+    this.map.on('load', () => {
+      this.addPointOnMap();
+    })
   }
 
   addPointOnMap() {
     const size = 100;
     var that = this
-  // This implements `StyleImageInterface`
-  // to draw a pulsing dot icon on the map.
+    // This implements `StyleImageInterface`
+    // to draw a pulsing dot icon on the map.
     const pulsingDot = {
       width: size,
       height: size,
@@ -155,7 +176,6 @@ export default class extends Controller {
       }
     };
 
-    this.map.on('load', () => {
       this.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
       // setup the viewport
       setTimeout(() => {
@@ -178,6 +198,7 @@ export default class extends Controller {
           ]
         }
       });
+
       this.map.addLayer({
         'id': 'layer-with-pulsing-dot',
         'type': 'symbol',
@@ -186,6 +207,5 @@ export default class extends Controller {
           'icon-image': 'pulsing-dot'
           }
       });
-    });
   }
 }
