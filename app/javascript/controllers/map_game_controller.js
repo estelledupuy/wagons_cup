@@ -41,35 +41,27 @@ export default class extends Controller {
 
     this.setCable();
     this.setAeris();
+    this.addMarkerOnMap();
 
     this.map.on('load', () => {
       this.addPointOnMap();
     })
   }
 
-          const options = {
-              type: 'move'
-            }
-          controller.addDataInspectorControl(options)
-        });
-        this.addPointOnMap();
-        this.addMarkerOnMap();
 
-      }
+  addMarkerOnMap() {
+    new mapboxgl.Marker()
+      .setLngLat([ this.markerStartLongitudeValue, this.markerStartLatitudeValue ])
+      .addTo(this.map)
 
-      addMarkerOnMap() {
-        new mapboxgl.Marker()
-          .setLngLat([ this.markerStartLongitudeValue, this.markerStartLatitudeValue ])
-          .addTo(this.map)
+    // Create a HTML element for your custom marker
+    const customEndingMarker = document.createElement("img")
+    customEndingMarker.src = this.markerEndingIconUrlValue
 
-        // Create a HTML element for your custom marker
-        const customEndingMarker = document.createElement("img")
-        customEndingMarker.src = this.markerEndingIconUrlValue
-
-        new mapboxgl.Marker(customEndingMarker)
-          .setLngLat([ this.markerEndingLongitudeValue, this.markerEndingLatitudeValue ])
-          .addTo(this.map)
-      }
+    new mapboxgl.Marker(customEndingMarker)
+      .setLngLat([ this.markerEndingLongitudeValue, this.markerEndingLatitudeValue ])
+      .addTo(this.map)
+  }
 
   setAeris() {
     console.log('aeris')
