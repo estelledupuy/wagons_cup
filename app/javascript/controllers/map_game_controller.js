@@ -17,12 +17,16 @@ export default class extends Controller {
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
+
     this.channel = createConsumer().subscriptions.create(
       { channel: "BoatChannel", id: this.boatIdValue },
-      { received: data => console.log(data) }
-    )
-    console.log(`Subscribe to the chatroom with the id ${this.boatIdValue}.`)
 
+      {
+        received(data) {
+          console.log(data)
+        }
+      }
+    )
     // this.clearRoute = false;
 
     this.map = new mapboxgl.Map({
