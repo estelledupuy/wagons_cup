@@ -1,5 +1,5 @@
 <div class="d-flex">
-<% @boat = Boat.find(params[:boat_id]) %>
+
   <div
     data-controller="map-game"
     data-map-game-marker-start-latitude-value="<%= @boat.game.race.starting_latitude%>"
@@ -27,3 +27,8 @@
 <p>current lat / lon </p>
 <%= @boat.latitude %>
 <%= @boat.longitude %>
+
+
+<div data-map-game-target="distance-info">
+<p>Distance to arrival</p>
+</div>

@@ -1,10 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 import * as mapsgl from '@aerisweather/mapsgl';
+import { createConsumer } from "@rails/actioncable"
 // import '@aerisweather/mapsgl/dist/mapsgl.css';
 
 // Connects to data-controller="map"
 export default class extends Controller {
-
   static values = {
     apiKey: String,
     clientId: String,
@@ -15,13 +15,21 @@ export default class extends Controller {
     markerStartLongitude: Number,
     markerEndingLatitude: Number,
     markerEndingLongitude: Number,
-    markerEndingIconUrl: String
+    markerEndingIconUrl: String,
+    boatId: Number,
   }
+
+  static targets = ["distance-info"]
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
 
-    // this.clearRoute = false;
+
+    var from = turf.point([-75.343, 39.984]);
+          var to = turf.point([-75.534, 39.123]);
+          var options = {units: 'miles'};
+          var distance = turf.distance(from, to, options);
+          console.log("distance", distance);
 
     this.map = new mapboxgl.Map({
       container: this.element,
@@ -31,45 +39,13 @@ export default class extends Controller {
     })
 
 
+    this.setCable();
+    this.setAeris();
 
-      /**
-      * Set up your AerisWeather account and access keys for the SDK.
-      */
-      const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
-
-      /**
-      * Create a map controller that corresponds to the selected mapping library, passing in
-      * your `map` and `account` instances.
-      */
-      const controller = new mapsgl.MapboxMapController(this.map, { account });
-
-      /**
-      * Add functionality and data to your map once the controller's `load` event has been triggered.
-      */
-      controller.on('load', () => {
-        controller.addWeatherLayer('wind-particles', {
-          paint: {
-              // sample: {
-              //     colorscale: {
-              //         normalized: true,
-              //         stops: [
-              //             0, '#f5f5f5',
-              //             0.25, '#f5f5f5',
-              //             0.5, '#f5f5f5',
-              //             0.75, '#f5f5f5',
-              //             1, '#f5f5f5',
-              //           ]
-              //         }
-              //     },
-              particle: {
-                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
-                  size: 1,
-                  speed: 1,
-                  trailsFade: 0.93,
-                  dropRate: 0.005
-                }
-              }
-          });
+    this.map.on('load', () => {
+      this.addPointOnMap();
+    })
+  }
 
           const options = {
               type: 'move'
@@ -95,11 +71,72 @@ export default class extends Controller {
           .addTo(this.map)
       }
 
+  setAeris() {
+    console.log('aeris')
+    /**
+    * Set up your AerisWeather account and access keys for the SDK.
+    */
+     const account = new mapsgl.Account(this.clientIdValue, this.clientSecretValue);
+
+     /**
+     * Create a map controller that corresponds to the selected mapping library, passing in
+     * your `map` and `account` instances.
+     */
+     const controller = new mapsgl.MapboxMapController(this.map, { account });
+
+     /**
+     * Add functionality and data to your map once the controller's `load` event has been triggered.
+     */
+     controller.on('load', () => {
+       controller.addWeatherLayer('wind-particles', {
+         paint: {
+             particle: {
+                 count: Math.pow(150, 2), // using a power of two, e.g. 65536
+                 size: 1,
+                 speed: 1,
+                 trailsFade: 0.93,
+                 dropRate: 0.005
+               }
+             }
+         });
+
+      const options = {
+        type: 'move'
+      }
+
+      controller.addDataInspectorControl(options)
+    });
+  }
+
+  setCable() {
+    this.channel = createConsumer().subscriptions.create(
+      { channel: "BoatChannel", id: this.boatIdValue },
+      { received: this.updateGeoJson.bind(this) }
+    )
+  }
+
+  updateGeoJson(data) {
+    const coordinates = [data.longitude, data.latitude]
+    const geojson = {
+      'type': 'FeatureCollection',
+      'features': [{
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': coordinates
+        }
+      }]
+    }
+
+    this.map.getSource('dot-point').setData(geojson);
+  }
+
+
   addPointOnMap() {
     const size = 100;
     var that = this
-  // This implements `StyleImageInterface`
-  // to draw a pulsing dot icon on the map.
+    // This implements `StyleImageInterface`
+    // to draw a pulsing dot icon on the map.
     const pulsingDot = {
       width: size,
       height: size,
@@ -168,7 +205,6 @@ export default class extends Controller {
       }
     };
 
-    this.map.on('load', () => {
       this.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
       // setup the viewport
       setTimeout(() => {
@@ -191,6 +227,7 @@ export default class extends Controller {
           ]
         }
       });
+
       this.map.addLayer({
         'id': 'layer-with-pulsing-dot',
         'type': 'symbol',
@@ -199,6 +236,5 @@ export default class extends Controller {
           'icon-image': 'pulsing-dot'
           }
       });
-    });
   }
 }
