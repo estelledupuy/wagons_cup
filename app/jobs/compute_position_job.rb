@@ -15,7 +15,7 @@ class ComputePositionJob < ApplicationJob
     puts "last boat saved #{Boat.last}"
 
     BoatChannel.broadcast_to(
-      @boat, 'toto'
+      @boat, { trace: @boat.trace, longitude: @boat.longitude, latitude: @boat.latitude}
     )
   end
 end
