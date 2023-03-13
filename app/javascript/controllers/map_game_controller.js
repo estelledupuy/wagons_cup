@@ -15,8 +15,17 @@ export default class extends Controller {
     boatId: Number,
   }
 
+  static targets = ["distance-info"]
+
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
+
+
+    var from = turf.point([-75.343, 39.984]);
+          var to = turf.point([-75.534, 39.123]);
+          var options = {units: 'miles'};
+          var distance = turf.distance(from, to, options);
+          console.log("distance", distance);
 
     this.map = new mapboxgl.Map({
       container: this.element,
@@ -59,6 +68,12 @@ export default class extends Controller {
               'icon-image': 'pulsing-dot'
               }
           });
+
+          var from = turf.point([-75.343, 39.984]);
+          var to = turf.point([-75.534, 39.123]);
+          var options = {units: 'miles'};
+          var distance = turf.distance(from, to, options);
+          that.distance-infoTarget.insertAdjacentText("beforeend", distance)
         }
       }
     )
