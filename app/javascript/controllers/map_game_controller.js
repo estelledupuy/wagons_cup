@@ -11,6 +11,11 @@ export default class extends Controller {
     clientSecret: String,
     boatLongitude: Number,
     boatLatitude: Number,
+    markerStartLatitude: Number,
+    markerStartLongitude: Number,
+    markerEndingLatitude: Number,
+    markerEndingLongitude: Number,
+    markerEndingIconUrl: String
   }
 
   connect() {
@@ -70,10 +75,25 @@ export default class extends Controller {
               type: 'move'
             }
           controller.addDataInspectorControl(options)
-       });
-    this.addPointOnMap();
+        });
+        this.addPointOnMap();
+        this.addMarkerOnMap();
 
-  }
+      }
+
+      addMarkerOnMap() {
+        new mapboxgl.Marker()
+          .setLngLat([ this.markerStartLongitudeValue, this.markerStartLatitudeValue ])
+          .addTo(this.map)
+
+        // Create a HTML element for your custom marker
+        const customEndingMarker = document.createElement("img")
+        customEndingMarker.src = this.markerEndingIconUrlValue
+
+        new mapboxgl.Marker(customEndingMarker)
+          .setLngLat([ this.markerEndingLongitudeValue, this.markerEndingLatitudeValue ])
+          .addTo(this.map)
+      }
 
   addPointOnMap() {
     const size = 100;
