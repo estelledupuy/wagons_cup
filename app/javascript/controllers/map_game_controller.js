@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info"]
+  static targets = ["distance-info", "map"]
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
@@ -32,7 +32,7 @@ export default class extends Controller {
           console.log("distance", distance);
 
     this.map = new mapboxgl.Map({
-      container: this.element,
+      container: this.mapTarget,
       style: 'mapbox://styles/mapbox/satellite-v9',
       center: [2.3488, 48.85341],
       zoom: 0,
