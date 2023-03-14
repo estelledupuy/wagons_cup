@@ -19,19 +19,15 @@ export default class extends Controller {
     boatId: Number,
   }
 
-
   static targets = ["distance-info", "map", "wind"]
-
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
-
 
     var from = turf.point([-75.343, 39.984]);
           var to = turf.point([-75.534, 39.123]);
           var options = {units: 'miles'};
           var distance = turf.distance(from, to, options);
-          console.log("distance", distance);
 
     this.map = new mapboxgl.Map({
       container: this.mapTarget,
@@ -39,7 +35,6 @@ export default class extends Controller {
       center: [2.3488, 48.85341],
       zoom: 0,
     })
-
 
     this.setCable();
     this.setAeris();
@@ -62,7 +57,6 @@ export default class extends Controller {
   }
 
   setAeris() {
-    console.log('aeris')
     /**
     * Set up your AerisWeather account and access keys for the SDK.
     */
@@ -100,15 +94,19 @@ export default class extends Controller {
   setCable() {
     this.channel = createConsumer().subscriptions.create(
       { channel: "BoatChannel", id: this.boatIdValue },
-      { received: this.updateGeoJson.bind(this) }
+      { received: this.refresh.bind(this) }
     )
   }
 
-  updateGeoJson(data) {
-    const trace = data.trace
-    console.log(trace)
-    const coordinate = [data.longitude, data.latitude]
+  refresh(data) {
+    this.updateGeoJson(data);
+    this.tiltWithWind(data);
+  }
 
+  updateGeoJson(data) {
+    console.log(data)
+    const wind_dir = data.wind_dir
+    const coordinates = [data.longitude, data.latitude]
     const geojson = {
       'type': 'FeatureCollection',
       'features': [{
@@ -119,58 +117,14 @@ export default class extends Controller {
         }
       }]
     }
-
     this.map.getSource('dot-point').setData(geojson);
+  }
 
-    const geojson2 = {
-      'type': 'FeatureCollection',
-      'features': [{
-        'type': 'Feature',
-        'geometry': {
-          'type': 'LineString',
-          'coordinates': trace
-        }
-      }]
-    }
-
-    if (this.map.getLayer('trace')) {
-        console.log('hello')
-        this.map.removeLayer('trace')
-        this.map.getSource('trace').setData(geojson2);
-        this.map.addLayer('trace')
-    } else {
-      console.log('coucou')
-      this.map.addSource('trace', { type: 'geojson', data: geojson2 });
-      this.map.addLayer({
-        'id': 'trace',
-        'type': 'line',
-        'source': 'trace',
-        'paint': {
-          'line-color': 'yellow',
-          'line-opacity': 0.75,
-          'line-width': 5
-        }
-      });
-    }
-
-    // setup the viewport
-    //map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
-    //map.setPitch(30);
-    geojson2.features[0].geometry.coordinates = [coordinates[0]];
-    // on a regular basis, add more coordinates from the saved list and update the map
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < trace.length) {
-          console.log('ligne')
-          geojson2.features[0].geometry.coordinates.push(trace[i]);
-          this.map.getSource('trace').setData(geojson2);
-          this.map.panTo(trace[i]);
-        i++;
-      } else {
-          console.log('ciao')
-          window.clearInterval(timer);
-      }
-    }, 10);
+  tiltWithWind(data) {
+    console.log(data)
+    const wind_dir = data.wind_dir
+    console.log(wind_dir);
+    this.windTarget.style.transform = `rotate(${wind_dir}deg)`;
   }
 
   addPointOnMap() {
@@ -279,6 +233,7 @@ export default class extends Controller {
       });
   }
 
+
   addMeteoLayerTemperature() {
     if (this.controller.getLayer('temperatures-contour')) {
       this.controller.removeLayer('temperatures-contour')
@@ -302,4 +257,5 @@ export default class extends Controller {
         this.controller.addWeatherLayer('accum-precip-1hr')
       }
   }
+
 }
