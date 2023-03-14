@@ -54,11 +54,7 @@ export default class extends Controller {
       .setLngLat([ this.markerStartLongitudeValue, this.markerStartLatitudeValue ])
       .addTo(this.map)
 
-    // Create a HTML element for your custom marker
-    const customEndingMarker = document.createElement("img")
-    customEndingMarker.src = this.markerEndingIconUrlValue
-
-    new mapboxgl.Marker(customEndingMarker)
+    new mapboxgl.Marker()
       .setLngLat([ this.markerEndingLongitudeValue, this.markerEndingLatitudeValue ])
       .addTo(this.map)
   }
