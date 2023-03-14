@@ -280,26 +280,22 @@ export default class extends Controller {
   }
 
   addMeteoLayerTemperature() {
-    if (this.controller.getLayer('temperatures-contour')) {
-      this.controller.removeLayer('temperatures-contour')
-    } else {
-      this.controller.addWeatherLayer('temperatures-contour')
-    }
+    this.controller.removeWeatherLayer('temperatures-contour')
+    this.controller.addWeatherLayer('temperatures-contour')
   }
 
   addMeteoLayerRadar() {
-    if (this.controller.getLayer('radar')) {
-        this.controller.removeLayer('radar')
-      } else {
-        this.controller.addWeatherLayer('radar')
-      }
+    this.controller.removeWeatherLayer('radar')
+    this.controller.addWeatherLayer('radar')
   }
 
-  addMeteoLayerPrecipitations() {
-    if (this.controller.getLayer('accum-precip-1hr')) {
-        this.controller.removeLayer('accum-precip-1hr')
-      } else {
-        this.controller.addWeatherLayer('accum-precip-1hr')
-      }
+  addMeteoLayerPrecipitations(event) {
+    this.controller.addWeatherLayer('accum-precip-1hr');
+    event.currentTarget.dataset.action = "click->map-game#removeMeteoLayerPrecipitations";
+  }
+
+  removeMeteoLayerPrecipitations(event) {
+    this.controller.removeWeatherLayer('accum-precip-1hr');
+    event.currentTarget.dataset.action = "click->map-game#addMeteoLayerPrecipitations";
   }
 }
