@@ -7,6 +7,9 @@ import { application } from "./application"
 import BoatSelectController from "./boat_select_controller"
 application.register("boat-select", BoatSelectController)
 
+import DirectionController from "./direction_controller"
+application.register("direction", DirectionController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
@@ -15,3 +18,6 @@ application.register("map", MapController)
 
 import MapGameController from "./map_game_controller"
 application.register("map-game", MapGameController)
+
+import ToggleController from "./toggle_controller"
+application.register("toggle", ToggleController)

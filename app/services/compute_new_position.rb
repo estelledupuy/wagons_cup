@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class ComputeNewPosition
     attr_accessor :boat, :direction
 
@@ -8,9 +10,9 @@ class ComputeNewPosition
 
     def call
       time_interval = (0.16).fdiv(60) # inputs in minutes, output in hours
-      wind_dir = 109 #info extracted from API, in degrees
+      wind_dir = wind_direction #info extracted from API, in degrees
       adj_coeff = 150 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
-      wind_speed = 5.75 #info extracted from API, in MPH
+      wind_speed = wind_speedy #info extracted from API, in MPH
       # boat_speed = allure-derived coeff * wind_speed
       # DIRECTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] avec 1: vent debout (0°), 2 & 10: Près (45°); 3 & 9: Bon près (60°);
       # 4 & 8: Travers (90°); 5 & 7: Grand largue (135°); 6: Vent arrière.
@@ -58,4 +60,18 @@ class ComputeNewPosition
       new_lon = @boat.longitude + lon_change
       return [new_lat, new_lon]
     end
+end
+
+private
+
+def wind_info
+  url = "https://api.aerisapi.com/observations/closest?p=#{@boat.latitude},#{@boat.longitude}&client_id=#{ENV["CLIENT_ID"]}&client_secret=#{ENV["CLIENT_SECRET"]}"
+
+  payload = URI.open(url).read
+  data = JSON.parse(payload)
+  @wind_speedy = data['response'].first['ob']['windMPH']
+  @wind_direction = data['response'].first['ob']['windDirDEG']
+  @weather = data['response'].first['ob']['weather']
+  @tempc = data['response'].first['ob']['tempC']
+  @icon = data['response'].first['ob']['icon']
 end
