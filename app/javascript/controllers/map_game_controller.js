@@ -29,7 +29,6 @@ export default class extends Controller {
           var to = turf.point([-75.534, 39.123]);
           var options = {units: 'miles'};
           var distance = turf.distance(from, to, options);
-          console.log("distance", distance);
 
     this.map = new mapboxgl.Map({
       container: this.mapTarget,
@@ -60,7 +59,6 @@ export default class extends Controller {
   }
 
   setAeris() {
-    console.log('aeris')
     /**
     * Set up your AerisWeather account and access keys for the SDK.
     */
@@ -99,11 +97,19 @@ export default class extends Controller {
   setCable() {
     this.channel = createConsumer().subscriptions.create(
       { channel: "BoatChannel", id: this.boatIdValue },
-      { received: this.updateGeoJson.bind(this) }
+      { received: this.refresh.bind(this) }
     )
   }
 
+  refresh(data) {
+    this.updateGeoJson(data);
+    this.tiltWithWind(data);
+  }
+
   updateGeoJson(data) {
+    console.log(data)
+
+    const wind_dir = data.wind_dir
     const coordinates = [data.longitude, data.latitude]
     const geojson = {
       'type': 'FeatureCollection',
@@ -117,6 +123,13 @@ export default class extends Controller {
     }
 
     this.map.getSource('dot-point').setData(geojson);
+  }
+
+  tiltWithWind(data) {
+    console.log(data)
+    const wind_dir = data.wind_dir
+    console.log(wind_dir);
+    this.windTarget.style.transform = `rotate(${wind_dir}deg)`;
   }
 
 
@@ -225,4 +238,6 @@ export default class extends Controller {
           }
       });
   }
+
+
 }
