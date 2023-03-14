@@ -24,7 +24,6 @@ export default class extends Controller {
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
 
-
     var from = turf.point([-75.343, 39.984]);
           var to = turf.point([-75.534, 39.123]);
           var options = {units: 'miles'};
@@ -36,7 +35,6 @@ export default class extends Controller {
       center: [2.3488, 48.85341],
       zoom: 0,
     })
-
 
     this.setCable();
     this.setAeris();
@@ -68,13 +66,13 @@ export default class extends Controller {
      * Create a map controller that corresponds to the selected mapping library, passing in
      * your `map` and `account` instances.
      */
-     const controller = new mapsgl.MapboxMapController(this.map, { account });
+     this.controller = new mapsgl.MapboxMapController(this.map, { account });
 
      /**
      * Add functionality and data to your map once the controller's `load` event has been triggered.
      */
-     controller.on('load', () => {
-       controller.addWeatherLayer('wind-particles', {
+     this.controller.on('load', () => {
+       this.controller.addWeatherLayer('wind-particles', {
          paint: {
              particle: {
                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
@@ -89,8 +87,7 @@ export default class extends Controller {
       const options = {
         type: 'move'
       }
-
-      controller.addDataInspectorControl(options)
+      this.controller.addDataInspectorControl(options)
     });
   }
 
@@ -108,7 +105,6 @@ export default class extends Controller {
 
   updateGeoJson(data) {
     console.log(data)
-
     const wind_dir = data.wind_dir
     const coordinates = [data.longitude, data.latitude]
     const geojson = {
@@ -117,11 +113,10 @@ export default class extends Controller {
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': coordinates
+          'coordinates': coordinate
         }
       }]
     }
-
     this.map.getSource('dot-point').setData(geojson);
   }
 
@@ -131,7 +126,6 @@ export default class extends Controller {
     console.log(wind_dir);
     this.windTarget.style.transform = `rotate(${wind_dir}deg)`;
   }
-
 
   addPointOnMap() {
     const size = 100;
@@ -239,5 +233,29 @@ export default class extends Controller {
       });
   }
 
+
+  addMeteoLayerTemperature() {
+    if (this.controller.getLayer('temperatures-contour')) {
+      this.controller.removeLayer('temperatures-contour')
+    } else {
+      this.controller.addWeatherLayer('temperatures-contour')
+    }
+  }
+
+  addMeteoLayerRadar() {
+    if (this.controller.getLayer('radar')) {
+        this.controller.removeLayer('radar')
+      } else {
+        this.controller.addWeatherLayer('radar')
+      }
+  }
+
+  addMeteoLayerPrecipitations() {
+    if (this.controller.getLayer('accum-precip-1hr')) {
+        this.controller.removeLayer('accum-precip-1hr')
+      } else {
+        this.controller.addWeatherLayer('accum-precip-1hr')
+      }
+  }
 
 }
