@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map", "wind"]
+  static targets = ["distance-info", "map", "wind", "jointure"]
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
@@ -104,16 +104,17 @@ export default class extends Controller {
   }
 
   updateGeoJson(data) {
-    console.log(data)
     const wind_dir = data.wind_dir
-    const coordinates = [data.longitude, data.latitude]
+    this.jointureTarget.dataset.directionWinDirValue = wind_dir
+    var coordinates = [data.longitude, data.latitude]
+
     const geojson = {
       'type': 'FeatureCollection',
       'features': [{
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': coordinate
+          'coordinates': coordinates
         }
       }]
     }
@@ -207,6 +208,14 @@ export default class extends Controller {
         // this.map.setPitch(30);
       }, 2000)
 
+      // Load an image from an external URL.
+      this.map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/cat.png', (error, image) => {
+      if (error) throw error;
+      // Add the loaded image to the style's sprite with the ID 'kitten'.
+      this.map.addImage('kitten', image);
+      });
+
+
       this.map.addSource('dot-point', {
         'type': 'geojson',
         'data': {
@@ -228,7 +237,7 @@ export default class extends Controller {
         'type': 'symbol',
         'source': 'dot-point',
         'layout': {
-          'icon-image': 'pulsing-dot'
+          'icon-image': 'kitten'
           }
       });
   }
