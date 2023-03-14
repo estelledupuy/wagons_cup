@@ -131,7 +131,6 @@ export default class extends Controller {
       // // start by showing just the first coordinate
       geojson.features[0].geometry.coordinates = [coordinates[0]];
 
-      console.log(this.map.getStyle());
       // // add it to the map
       this.map.addSource('trace', { type: 'geojson', data: geojson });
       this.map.addLayer({

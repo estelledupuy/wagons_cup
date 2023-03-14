@@ -18,7 +18,6 @@ export default class extends Controller {
     markerEndingIconUrl: String,
     boatId: Number,
   }
-
   static targets = ["distance-info"]
 
   connect() {
@@ -74,13 +73,13 @@ export default class extends Controller {
      * Create a map controller that corresponds to the selected mapping library, passing in
      * your `map` and `account` instances.
      */
-     const controller = new mapsgl.MapboxMapController(this.map, { account });
+     this.controller = new mapsgl.MapboxMapController(this.map, { account });
 
      /**
      * Add functionality and data to your map once the controller's `load` event has been triggered.
      */
-     controller.on('load', () => {
-       controller.addWeatherLayer('wind-particles', {
+     this.controller.on('load', () => {
+       this.controller.addWeatherLayer('wind-particles', {
          paint: {
              particle: {
                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
@@ -95,8 +94,7 @@ export default class extends Controller {
       const options = {
         type: 'move'
       }
-
-      controller.addDataInspectorControl(options)
+      this.controller.addDataInspectorControl(options)
     });
   }
 
@@ -108,21 +106,73 @@ export default class extends Controller {
   }
 
   updateGeoJson(data) {
-    const coordinates = [data.longitude, data.latitude]
+    const trace = data.trace
+    console.log(trace)
+    const coordinate = [data.longitude, data.latitude]
+
     const geojson = {
       'type': 'FeatureCollection',
       'features': [{
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
-          'coordinates': coordinates
+          'coordinates': coordinate
         }
       }]
     }
 
     this.map.getSource('dot-point').setData(geojson);
-  }
 
+    const geojson2 = {
+      'type': 'FeatureCollection',
+      'features': [{
+        'type': 'Feature',
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': trace
+        }
+      }]
+    }
+
+    if (this.map.getLayer('trace')) {
+        console.log('hello')
+        this.map.removeLayer('trace')
+        this.map.getSource('trace').setData(geojson2);
+        this.map.addLayer('trace')
+    } else {
+      console.log('coucou')
+      this.map.addSource('trace', { type: 'geojson', data: geojson2 });
+      this.map.addLayer({
+        'id': 'trace',
+        'type': 'line',
+        'source': 'trace',
+        'paint': {
+          'line-color': 'yellow',
+          'line-opacity': 0.75,
+          'line-width': 5
+        }
+      });
+    }
+
+    // setup the viewport
+    //map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
+    //map.setPitch(30);
+    geojson2.features[0].geometry.coordinates = [coordinates[0]];
+    // on a regular basis, add more coordinates from the saved list and update the map
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < trace.length) {
+          console.log('ligne')
+          geojson2.features[0].geometry.coordinates.push(trace[i]);
+          this.map.getSource('trace').setData(geojson2);
+          this.map.panTo(trace[i]);
+        i++;
+      } else {
+          console.log('ciao')
+          window.clearInterval(timer);
+      }
+    }, 10);
+  }
 
   addPointOnMap() {
     const size = 100;
@@ -228,5 +278,29 @@ export default class extends Controller {
           'icon-image': 'pulsing-dot'
           }
       });
+  }
+
+  addMeteoLayerTemperature() {
+    if (this.controller.getLayer('temperatures-contour')) {
+      this.controller.removeLayer('temperatures-contour')
+    } else {
+      this.controller.addWeatherLayer('temperatures-contour')
+    }
+  }
+
+  addMeteoLayerRadar() {
+    if (this.controller.getLayer('radar')) {
+        this.controller.removeLayer('radar')
+      } else {
+        this.controller.addWeatherLayer('radar')
+      }
+  }
+
+  addMeteoLayerPrecipitations() {
+    if (this.controller.getLayer('accum-precip-1hr')) {
+        this.controller.removeLayer('accum-precip-1hr')
+      } else {
+        this.controller.addWeatherLayer('accum-precip-1hr')
+      }
   }
 }
