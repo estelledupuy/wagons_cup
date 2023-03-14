@@ -8,13 +8,9 @@ export default class extends Controller {
     this.isOpen = false;
   }
   connect() {
-    console.log('Hello');
-    console.log(this.element);
   }
 
   menu(){
-    console.log("you clicked the button!");
-    console.log(this.commandesTarget);
     this.isOpen ? this.hide() : this.show();
     this.isOpen = !this.isOpen;
   }

@@ -1,21 +1,22 @@
 class ComputePositionJob < ApplicationJob
   queue_as :default
+  sidekiq_options retry: false
 
   def perform(id)
     @boat = Boat.find(id)
-    direction = @boat.direction
-    @boat.trace << [@boat.longitude, @boat.latitude]
-    puts "direction #{direction}"
-    @boat.latitude = ComputeNewPosition.new(@boat, direction).call[0] #Get param from user decision
-    puts "latitude #{@boat.latitude}"
-    @boat.longitude = ComputeNewPosition.new(@boat, direction).call[1]
-    puts "longitude #{@boat.longitude}"
-    @boat.direction = direction
+    new_pos = ComputeNewPosition.new(@boat, @boat.direction).call
+
+    return if new_pos.nil?
+
+    latitude, longitude, wind_dir = new_pos[0], new_pos[1], new_pos[2]
+
+
+    @boat.trace << [longitude, latitude]
+    @boat.update(latitude: latitude, longitude: longitude, direction: wind_dir)
     @boat.save!
-    puts "last boat saved #{Boat.last}"
 
     BoatChannel.broadcast_to(
-      @boat, { trace: @boat.trace, longitude: @boat.longitude, latitude: @boat.latitude}
+      @boat, { trace: @boat.trace, longitude: @boat.longitude, latitude: @boat.latitude, wind_dir: wind_dir }
     )
   end
 end

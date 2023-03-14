@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   end
 
   resources :games, only: [:new, :show]
-  resources :boats, only: %i[update]
+
+  resources :boats, only: %i[update] do
+    member do
+      get "/move", to: "games#move"
+    end
+  end
 
   get "/boat_select", to: "boats#select"
 

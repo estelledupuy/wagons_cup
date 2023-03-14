@@ -1,0 +1,6 @@
+.cls-5.active {
+  position: relative;
+  &:after {
+    content: 'coucou'
+  }
+}
