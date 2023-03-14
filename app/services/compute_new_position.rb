@@ -7,7 +7,7 @@ class ComputeNewPosition
     end
 
     def call
-      time_interval = 1.fdiv(60) # inputs in minutes, output in hours
+      time_interval = (0.16).fdiv(60) # inputs in minutes, output in hours
       wind_dir = 109 #info extracted from API, in degrees
       adj_coeff = 150 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
       wind_speed = 5.75 #info extracted from API, in MPH
@@ -48,6 +48,7 @@ class ComputeNewPosition
         allure_coeff = 60%
         gamma = wind_dir +180 - 180
       end
+
       boat_speed = allure_coeff * wind_speed
       boat_distance = boat_speed * time_interval * adj_coeff * 1.609 # 1.609 pour passer de mille à km
       gamma_radian = (gamma * Math::PI) / 180
