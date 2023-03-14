@@ -1,25 +1,4 @@
-<div class="d-flex">
-  <div
-    data-controller="map-game"
-    data-map-game-marker-start-latitude-value="<%= @boat.game.race.starting_latitude%>"
-    data-map-game-marker-start-longitude-value="<%= @boat.game.race.starting_longitude%>"
-    data-map-game-marker-ending-latitude-value="<%= @boat.game.race.ending_latitude%>"
-    data-map-game-marker-ending-longitude-value="<%= @boat.game.race.ending_longitude%>"
-    data-map-game-marker-ending-icon-url-value="<%= image_path "icons8-triangular-flag-48.png" %>"
-    data-map-game-boat-longitude-value="<%= @boat.longitude%>"
-    data-map-game-boat-latitude-value="<%= @boat.latitude%>"
-    data-map-game-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-    data-map-game-client-id-value="<%= ENV["CLIENT_ID"] %>"
-    data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
-
-    <div data-map-game-target="map" style="width: 100%; height: 90vh; padding-top: 9px;">
-    </div>
-
-    <div data-map-game-target="distance-info">
-    <p>Distance to arrival</p>
-    </div>
-
-    <div class="pop-up d-flex" data-controller="toggle" >
+ <div class="pop-up d-flex" data-controller="toggle" >
     <div class="burger" style="position:absolute; z-index: 2; right:0">
       <i data-action="click->toggle#menu" class="fa-solid fa-bars" style="color:black; margin-right: 15px; margin-top: 5px; font-size: 30px;"></i>
     </div>
@@ -28,7 +7,7 @@
       <h2 style="margin-top: 40px;">Infos Températures</h2>
       <h2 style="margin-top: 40px;">Houle</h2>
     </div>
-  
+
     <% @boat = Boat.find(params[:boat_id]) %>
       <div data-controller="map-game" data-map-game-boat-longitude-value="<%= @boat.longitude%>" data-map-game-boat-latitude-value="<%= @boat.latitude%>" data-map-game-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>" data-map-game-client-id-value="<%= ENV["CLIENT_ID"] %>" data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>" style="width: 100%; height: 90vh; padding-top: 9px;">
       </div>
@@ -117,13 +96,3 @@
     </div>
   </div>
 </div>
-
-  <h2>boat direction: choose an integer between 1 and 10</h2>
-  <%= simple_form_for(@boat) do |f| %>
-  <%= f.input :direction %>
-  <%= f.submit %>
-<% end %>
-
-<p>current lat / lon </p>
-<%= @boat.latitude %>
-<%= @boat.longitude %>
