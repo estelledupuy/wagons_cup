@@ -20,7 +20,7 @@ export default class extends Controller {
   }
 
 
-  static targets = ["distance-info", "map", "wind"]
+  static targets = ["distance-info", "map", "wind", "rain"]
 
 
   connect() {
@@ -78,7 +78,7 @@ export default class extends Controller {
      * Add functionality and data to your map once the controller's `load` event has been triggered.
      */
      this.controller.on('load', () => {
-       this.controller.addWeatherLayer('wind-particles', {
+        this.controller.addWeatherLayer('wind-particles', {
          paint: {
              particle: {
                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
@@ -90,10 +90,10 @@ export default class extends Controller {
              }
          });
 
-      const options = {
-        type: 'move'
-      }
-      this.controller.addDataInspectorControl(options)
+        const options = {
+          type: 'move'
+        }
+        this.controller.addDataInspectorControl(options)
     });
   }
 
