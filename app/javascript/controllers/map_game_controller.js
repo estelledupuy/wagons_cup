@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map"]
+  static targets = ["distance-info", "map", "wind"]
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
