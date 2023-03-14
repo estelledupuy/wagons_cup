@@ -18,18 +18,17 @@
 
   </div>
 
-  <div data-map-game-target="distance-info">
-   <p>Distance to arrival</p>
-  </div>
+  <%# <div data-map-game-target="distance-info">
+  <p>Distance to arrival</p>
+  </div> %>
 
   <div class="pop-up d-flex" data-controller="toggle" >
     <div class="burger" style="position:absolute; z-index: 2; right:0">
       <i data-action="click->toggle#menu" class="fa-solid fa-bars" style="color:black; margin-right: 15px; margin-top: 5px; font-size: 30px;"></i>
     </div>
     <div data-toggle-target="commandes" class="px-2 pt-2 pb-4" style="background-color: white; position:absolute; z-index:1; right:0; height: 749.695px;">
-      <h2 style="margin-top: 40px;">Infos Météo</h2>
-      <h2 style="margin-top: 40px;">Infos Températures</h2>
-      <h2 style="margin-top: 40px;">Houle</h2>
+      <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#addMeteoLayerPrecipitations"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
+      <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#addMeteoLayerRadar"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
     </div>
   </div>
 

@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map", "wind", "jointure"]
+  static targets = ["distance-info", "map", "wind", "jointure", "rain"]
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
@@ -72,7 +72,7 @@ export default class extends Controller {
      * Add functionality and data to your map once the controller's `load` event has been triggered.
      */
      this.controller.on('load', () => {
-       this.controller.addWeatherLayer('wind-particles', {
+        this.controller.addWeatherLayer('wind-particles', {
          paint: {
              particle: {
                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
@@ -84,10 +84,10 @@ export default class extends Controller {
              }
          });
 
-      const options = {
-        type: 'move'
-      }
-      this.controller.addDataInspectorControl(options)
+        const options = {
+          type: 'move'
+        }
+        this.controller.addDataInspectorControl(options)
     });
   }
 
@@ -244,27 +244,23 @@ export default class extends Controller {
 
 
   addMeteoLayerTemperature() {
-    if (this.controller.getLayer('temperatures-contour')) {
-      this.controller.removeLayer('temperatures-contour')
-    } else {
-      this.controller.addWeatherLayer('temperatures-contour')
-    }
+    this.controller.removeWeatherLayer('temperatures-contour')
+    this.controller.addWeatherLayer('temperatures-contour')
   }
 
   addMeteoLayerRadar() {
-    if (this.controller.getLayer('radar')) {
-        this.controller.removeLayer('radar')
-      } else {
-        this.controller.addWeatherLayer('radar')
-      }
+    this.controller.removeWeatherLayer('radar')
+    this.controller.addWeatherLayer('radar')
   }
 
-  addMeteoLayerPrecipitations() {
-    if (this.controller.getLayer('accum-precip-1hr')) {
-        this.controller.removeLayer('accum-precip-1hr')
-      } else {
-        this.controller.addWeatherLayer('accum-precip-1hr')
-      }
+  addMeteoLayerPrecipitations(event) {
+    this.controller.addWeatherLayer('accum-precip-1hr');
+    event.currentTarget.dataset.action = "click->map-game#removeMeteoLayerPrecipitations";
+  }
+
+  removeMeteoLayerPrecipitations(event) {
+    this.controller.removeWeatherLayer('accum-precip-1hr');
+    event.currentTarget.dataset.action = "click->map-game#addMeteoLayerPrecipitations";
   }
 
 }
