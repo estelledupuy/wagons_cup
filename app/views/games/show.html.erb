@@ -15,47 +15,38 @@
   data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
 
   <div data-map-game-target="map" style="width: 100%; height: 90vh; padding-top: 9px;">
-
+    <div class="boutton-navigue">
+      <button class="weather-button mt-5" data-bs-toggle="modal" data-bs-target="#UserChoiceModal">
+        <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
+      </button>
+      <div class="modal" id="UserChoiceModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Informations</h5>
+            </div>
+              <div class="modal-body">
+                <p>Longitude:  <%= @boat.longitude%></p>
+                <p>Latitude:  <%= @boat.latitude%></p>
+                <p>Temperature:  <%= @tempc %> c°</p>
+                <p>Wind speed:  <%= @wind_speedy %> Mph</p>
+                <p>Wind direction:  <%= @wind_direction %> °</p>
+                <p>Weather:  <%= @weather %></p>
+                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#addMeteoLayerPrecipitations"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
+                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#addMeteoLayerRadar"><i class="fa-sharp fa-solid fa-cloud-bolt-sun text-warning text-center fa-xl"></i></div>
+                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
+                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-temperature-high text-warning text-center fa-xl"></i></div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <%# <div data-map-game-target="distance-info">
   <p>Distance to arrival</p>
   </div> %>
 
-  <div class="pop-up d-flex" data-controller="toggle" >
-    <div class="burger" style="position:absolute; z-index: 2; right:0">
-      <i data-action="click->toggle#menu" class="fa-solid fa-bars" style="color:black; margin-right: 15px; margin-top: 5px; font-size: 30px;"></i>
-    </div>
-    <div data-toggle-target="commandes" class="px-2 pt-2 pb-4" style="background-color: white; position:absolute; z-index:1; right:0; height: 749.695px;">
-
-     <div class="boutton-navigue">
-          <button class="weather-button mt-5" data-bs-toggle="modal" data-bs-target="#UserChoiceModal">
-            <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" alt="Image météo">
-          </button>
-            <div class="modal" id="UserChoiceModal" tabindex="-1" role="dialog">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Informations</h5>
-                  </div>
-                  <div class="modal-body">
-                    <p>Longitude:  <%= @boat.longitude%></p>
-                    <p>Latitude:  <%= @boat.latitude%></p>
-                    <p>Température:  <%= @tempc %> c°</p>
-                    <p>Vitesse du vent:  <%= @wind_speedy %> Mph</p>
-                    <p>Direction du vent:  <%= @wind_direction %> °</p>
-                    <p>Météo:  <%= @weather %></p>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-
-      <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#addMeteoLayerPrecipitations"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
-      <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#addMeteoLayerRadar"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
-    </div>
-  </div>
 
   <div data-controller="direction" class="boussole" style="position:absolute" data-map-game-target="jointure" data-direction-windir-value="">
     <div class="parent" style="position:relative">
