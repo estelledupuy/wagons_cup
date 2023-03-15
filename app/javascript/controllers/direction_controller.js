@@ -48,6 +48,7 @@ export default class extends Controller {
      if (id==="a10") {
        alphaBoat = this.windirValue + 45 + 315
        }
+
       console.log(alphaBoat)
      this.windTarget.style.transform = `rotate(${this.windirValue }deg)`
      this.boatSelectorTarget.style.transform = `rotate(${alphaBoat}deg)`
