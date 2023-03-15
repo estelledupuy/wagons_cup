@@ -136,7 +136,8 @@ export default class extends Controller {
     const boat_dir = data.boat_dir
     console.log(wind_dir);
     this.windTarget.style.transform = `rotate(${wind_dir}deg)`;
-    const alpha_boat = angle(boat_dir, wind_dir)
+    const alpha_boat = this.angle(boat_dir, wind_dir);
+
     this.boatSelectorTarget.style.transform = `rotate(${alpha_boat}deg)`;
   }
 
