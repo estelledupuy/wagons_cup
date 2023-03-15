@@ -22,6 +22,11 @@ export default class extends Controller {
   static targets = ["distance-info", "map", "wind", "jointure", "rain"]
 
   connect() {
+    this.windLayer = false
+    this.radarLayer = false
+    this.precipations = false
+    this.temperatures = false
+
     mapboxgl.accessToken = this.apiKeyValue
 
     var from = turf.point([-75.343, 39.984]);
@@ -84,10 +89,14 @@ export default class extends Controller {
              }
          });
 
+        this.map.setLayoutProperty('wx.wind-particles::conditions.wind.particle', 'visibility', 'none')
+
         const options = {
           type: 'move'
         }
+
         this.controller.addDataInspectorControl(options)
+        console.log(this.controller)
     });
   }
 
@@ -242,25 +251,41 @@ export default class extends Controller {
       });
   }
 
+  toggleWindLayer() {
+    if (this.windLayer) {
+      this.map.setLayoutProperty('wx.wind-particles::conditions.wind.particle', 'visibility', 'none')
+      this.windLayer = false
+      return
+    }
 
-  addMeteoLayerTemperature() {
-    this.controller.removeWeatherLayer('temperatures-contour')
-    this.controller.addWeatherLayer('temperatures-contour')
+    this.map.setLayoutProperty('wx.wind-particles::conditions.wind.particle', 'visibility', 'visible')
+    this.windLayer = true
   }
 
-  addMeteoLayerRadar() {
-    this.controller.removeWeatherLayer('radar')
-    this.controller.addWeatherLayer('radar')
-  }
 
-  addMeteoLayerPrecipitations(event) {
-    this.controller.addWeatherLayer('accum-precip-1hr');
-    event.currentTarget.dataset.action = "click->map-game#removeMeteoLayerPrecipitations";
-  }
+  // toggleTemperatureLayer() {
+  //   if (this.temperatureLayer) {
+  //     this.map.setLayoutProperty('temperatures-contour', 'visibility', 'none')
+  //     this.temperatureLayer = false
+  //     return
+  //   }
 
-  removeMeteoLayerPrecipitations(event) {
-    this.controller.removeWeatherLayer('accum-precip-1hr');
-    event.currentTarget.dataset.action = "click->map-game#addMeteoLayerPrecipitations";
-  }
+  //   this.map.setLayoutProperty('', 'visibility', 'visible')
+  //   this.temperatureLayer = true
+  // }
 
+  // toggleRadarLayer() {
+  //   this.controller.removeWeatherLayer('radar')
+  //   this.controller.addWeatherLayer('radar')
+  // }
+
+  // togglePrecipitationsLayer {
+  //   this.controller.addWeatherLayer('accum-precip-1hr');
+  //   event.currentTarget.dataset.action = "click->map-game#removeMeteoLayerPrecipitations";
+  // }
+
+  // removeMeteoLayerPrecipitations(event) {
+  //   this.controller.removeWeatherLayer('accum-precip-1hr');
+  //   event.currentTarget.dataset.action = "click->map-game#addMeteoLayerPrecipitations";
+  // }
 }
