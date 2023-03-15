@@ -24,8 +24,8 @@ export default class extends Controller {
   connect() {
     this.windLayer = false
     this.radarLayer = false
-    this.precipations = false
-    this.temperatures = false
+    this.precipationsLayer = false
+    this.temperaturesLayer = false
 
     mapboxgl.accessToken = this.apiKeyValue
 
@@ -78,25 +78,31 @@ export default class extends Controller {
      */
      this.controller.on('load', () => {
         this.controller.addWeatherLayer('wind-particles', {
-         paint: {
-             particle: {
-                 count: Math.pow(150, 2), // using a power of two, e.g. 65536
-                 size: 1,
-                 speed: 1,
-                 trailsFade: 0.93,
-                 dropRate: 0.005
-               }
-             }
+          paint: {
+              particle: {
+                  count: Math.pow(150, 2), // using a power of two, e.g. 65536
+                  size: 1,
+                  speed: 1,
+                  trailsFade: 0.93,
+                  dropRate: 0.005
+                }
+              }
          });
+         this.controller.addWeatherLayer('radar')
+         this.controller.addWeatherLayer('temperatures-contour')
+         this.controller.addWeatherLayer('accum-precip-1hr')
 
         this.map.setLayoutProperty('wx.wind-particles::conditions.wind.particle', 'visibility', 'none')
+        this.map.setLayoutProperty('wx.temperatures-contour::conditions.temperature.contour', 'visibility', 'none')
+        this.map.setLayoutProperty('wx.radar::conditions.radar', 'visibility', 'none')
+        this.map.setLayoutProperty('wx.accum-precip-1hr::conditions.precip', 'visibility', 'none')
+        console.log(this.controller)
 
         const options = {
           type: 'move'
         }
 
         this.controller.addDataInspectorControl(options)
-        console.log(this.controller)
     });
   }
 
@@ -303,29 +309,36 @@ export default class extends Controller {
   }
 
 
-  // toggleTemperatureLayer() {
-  //   if (this.temperatureLayer) {
-  //     this.map.setLayoutProperty('temperatures-contour', 'visibility', 'none')
-  //     this.temperatureLayer = false
-  //     return
-  //   }
+  toggleTemperaturesLayer() {
+    if (this.temperaturesLayer) {
+      this.map.setLayoutProperty('wx.temperatures-contour::conditions.temperature.contour', 'visibility', 'none')
+      this.temperaturesLayer = false
+      return
+    }
 
-  //   this.map.setLayoutProperty('', 'visibility', 'visible')
-  //   this.temperatureLayer = true
-  // }
+    this.map.setLayoutProperty('wx.temperatures-contour::conditions.temperature.contour', 'visibility', 'visible')
+    this.temperaturesLayer = true
+  }
 
-  // toggleRadarLayer() {
-  //   this.controller.removeWeatherLayer('radar')
-  //   this.controller.addWeatherLayer('radar')
-  // }
+  toggleRadarLayer() {
+    if (this.radarLayer) {
+      this.map.setLayoutProperty('wx.radar::conditions.radar', 'visibility', 'none')
+      this.radarLayer = false
+      return
+    }
 
-  // togglePrecipitationsLayer {
-  //   this.controller.addWeatherLayer('accum-precip-1hr');
-  //   event.currentTarget.dataset.action = "click->map-game#removeMeteoLayerPrecipitations";
-  // }
+    this.map.setLayoutProperty('wx.radar::conditions.radar', 'visibility', 'visible')
+    this.radarLayer = true
+  }
 
-  // removeMeteoLayerPrecipitations(event) {
-  //   this.controller.removeWeatherLayer('accum-precip-1hr');
-  //   event.currentTarget.dataset.action = "click->map-game#addMeteoLayerPrecipitations";
-  // }
+  togglePrecipitationsLayer() {
+    if (this.precipitationsLayer) {
+      this.map.setLayoutProperty('wx.accum-precip-1hr::conditions.precip', 'visibility', 'none')
+      this.precipitationsLayer = false
+      return
+    }
+
+    this.map.setLayoutProperty('wx.accum-precip-1hr::conditions.precip', 'visibility', 'visible')
+    this.precipitationsLayer = true
+  }
 }
