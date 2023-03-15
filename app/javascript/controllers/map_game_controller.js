@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map", "wind", "jointure", "rain"]
+  static targets = ["distance-info", "map", "wind", "boatSelector", "jointure", "rain"]
 
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
@@ -124,8 +124,46 @@ export default class extends Controller {
   tiltWithWind(data) {
     console.log(data)
     const wind_dir = data.wind_dir
+    const boat_dir = data.boat_dir
     console.log(wind_dir);
     this.windTarget.style.transform = `rotate(${wind_dir}deg)`;
+    const alpha_boat = angle(boat_dir, wind_dir)
+    this.boatSelectorTarget.style.transform = `rotate(${alpha_boat}deg)`;
+  }
+
+  angle(dir, wind) {
+     var alphaBoat = 0
+     if (dir === 1) {
+       alphaBoat = wind + 45 + 0
+       }
+     if (dir === 2) {
+       alphaBoat = wind + 45 + 44
+       }
+     if (dir === 3) {
+       alphaBoat = wind + 45 + 59
+       }
+     if (dir === 4) {
+       alphaBoat = wind + 45 + 90
+       }
+     if (dir === 5) {
+       alphaBoat = wind + 45 + 133
+       }
+     if (dir === 6) {
+       alphaBoat = wind + 45 + 178
+       }
+     if (dir === 7) {
+       alphaBoat = wind + 45 + 225
+       }
+     if (dir === 8) {
+       alphaBoat = wind + 45 + 268
+       }
+     if (dir === 9) {
+       alphaBoat = wind + 45 + 300
+       }
+     if (dir === 10) {
+       alphaBoat = wind + 45 + 315
+       }
+     return alphaBoat
   }
 
   addPointOnMap() {
