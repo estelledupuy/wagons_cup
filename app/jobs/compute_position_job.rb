@@ -16,7 +16,7 @@ class ComputePositionJob < ApplicationJob
     @boat.save!
 
     BoatChannel.broadcast_to(
-      @boat, { trace: @boat.trace, longitude: @boat.longitude, latitude: @boat.latitude, wind_dir: wind_dir }
+      @boat, { trace: @boat.trace, longitude: @boat.longitude, latitude: @boat.latitude, wind_dir: wind_dir, boat_dir: @boat.direction }
     )
   end
 end

@@ -28,7 +28,7 @@ class BoatsController < ApplicationController
     @boat = Boat.find(params[:id])
     @boat.update(direction: params[:boat][:direction])
     ComputePositionJob.perform_later(params[:id])
-    redirect_to game_path(@boat.game)
+    render json: { status: :ok, new_direction: @boat.direction }
   end
 
   def select
