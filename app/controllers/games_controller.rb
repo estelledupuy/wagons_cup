@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
   def show
     @boat = Boat.find(params[:boat_id])
+    fetch_weather_data
   end
 
   private

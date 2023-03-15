@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map", "wind", "jointure", "rain"]
+  static targets = ["distance-info", "map", "wind", "boatSelector", "jointure", "rain"]
 
   connect() {
     this.windLayer = false
@@ -120,7 +120,7 @@ export default class extends Controller {
 
   updateGeoJson(data) {
     const wind_dir = data.wind_dir
-    this.jointureTarget.dataset.directionWinDirValue = wind_dir
+    this.jointureTarget.dataset.directionwindirValue = wind_dir
     var coordinates = [data.longitude, data.latitude]
 
     const geojson = {
@@ -139,8 +139,47 @@ export default class extends Controller {
   tiltWithWind(data) {
     console.log(data)
     const wind_dir = data.wind_dir
+    const boat_dir = data.boat_dir
     console.log(wind_dir);
     this.windTarget.style.transform = `rotate(${wind_dir}deg)`;
+    const alpha_boat = this.angle(boat_dir, wind_dir);
+
+    this.boatSelectorTarget.style.transform = `rotate(${alpha_boat}deg)`;
+  }
+
+  angle(dir, wind) {
+     var alphaBoat = 0
+     if (dir === 1) {
+       alphaBoat = wind + 45 + 0
+       }
+     if (dir === 2) {
+       alphaBoat = wind + 45 + 44
+       }
+     if (dir === 3) {
+       alphaBoat = wind + 45 + 59
+       }
+     if (dir === 4) {
+       alphaBoat = wind + 45 + 90
+       }
+     if (dir === 5) {
+       alphaBoat = wind + 45 + 133
+       }
+     if (dir === 6) {
+       alphaBoat = wind + 45 + 178
+       }
+     if (dir === 7) {
+       alphaBoat = wind + 45 + 225
+       }
+     if (dir === 8) {
+       alphaBoat = wind + 45 + 268
+       }
+     if (dir === 9) {
+       alphaBoat = wind + 45 + 300
+       }
+     if (dir === 10) {
+       alphaBoat = wind + 45 + 315
+       }
+     return alphaBoat
   }
 
   addPointOnMap() {
@@ -224,10 +263,10 @@ export default class extends Controller {
       }, 2000)
 
       // Load an image from an external URL.
-      this.map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/cat.png', (error, image) => {
+      this.map.loadImage('https://res.cloudinary.com/dwclozjta/image/upload/v1678870732/bateau_lemon_op5dfw_r7p18j.png', (error, image) => {
       if (error) throw error;
       // Add the loaded image to the style's sprite with the ID 'kitten'.
-      this.map.addImage('kitten', image);
+      this.map.addImage('boat', image);
       });
 
 
@@ -252,7 +291,8 @@ export default class extends Controller {
         'type': 'symbol',
         'source': 'dot-point',
         'layout': {
-          'icon-image': 'kitten'
+          'icon-image': 'boat',
+          'icon-size': 0.05,
           }
       });
   }

@@ -15,6 +15,7 @@ z-index: 1;
 
 .weather-button {
   border: none;
+  background-color: transparent;
   background-image: url("<%= @image_url %>");
   background-repeat: no-repeat;
   background-size: contain;
@@ -22,6 +23,10 @@ z-index: 1;
   height: 100px;
   cursor: pointer;
   border-radius: 50%;
+  position:absolute;
+  z-index: 2;
+  right:0;
+  margin-right: 10px;
 }
 
 .modal-backdrop {
@@ -34,3 +39,7 @@ z-index: 1;
   width: 215px;
   opacity: 0.8;
 }
+
+.weather-image {
+  height: 100px;
+ }
