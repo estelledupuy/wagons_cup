@@ -105,7 +105,7 @@ export default class extends Controller {
 
   updateGeoJson(data) {
     const wind_dir = data.wind_dir
-    this.jointureTarget.dataset.directionWinDirValue = wind_dir
+    this.jointureTarget.dataset.directionwindirValue = wind_dir
     var coordinates = [data.longitude, data.latitude]
 
     const geojson = {
