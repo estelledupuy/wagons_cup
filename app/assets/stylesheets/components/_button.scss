@@ -12,3 +12,25 @@ margin-top: 47px;
 position: relative;
 z-index: 1;
 }
+
+.weather-button {
+  border: none;
+  background-image: url("<%= @image_url %>");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.modal-backdrop {
+  z-index: -1;
+}
+
+.modal-content {
+  border-radius: 41px;
+  margin-left: 632px;
+  width: 215px;
+  opacity: 0.8;
+}
