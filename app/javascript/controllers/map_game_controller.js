@@ -247,10 +247,10 @@ export default class extends Controller {
       }, 2000)
 
       // Load an image from an external URL.
-      this.map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/cat.png', (error, image) => {
+      this.map.loadImage('https://res.cloudinary.com/dwclozjta/image/upload/v1678870732/bateau_lemon_op5dfw_r7p18j.png', (error, image) => {
       if (error) throw error;
       // Add the loaded image to the style's sprite with the ID 'kitten'.
-      this.map.addImage('kitten', image);
+      this.map.addImage('boat', image);
       });
 
 
@@ -275,7 +275,8 @@ export default class extends Controller {
         'type': 'symbol',
         'source': 'dot-point',
         'layout': {
-          'icon-image': 'kitten'
+          'icon-image': 'boat',
+          'icon-size': 0.05,
           }
       });
   }
