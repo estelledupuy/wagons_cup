@@ -16,7 +16,7 @@ Boat.create(name: "Speed Geoffroy", color: "red", sail_position: 0, score: 0)
 
 puts 'Creating 3 fake races...'
 
-r1 = Race.new(name: "Brest - Valparaíso", starting_latitude: 48.3905283, starting_longitude: -4.4860088, ending_latitude: -32.78446, ending_longitude: -74.2037, duration: 5, difficulty: 1, photo: "https://media.istockphoto.com/id/924568342/fr/photo/paysage-urbain-de-la-ville-historique-valparaiso.jpg?s=612x612&w=0&k=20&c=HAkcKWFd9UR-4FLGyq1DWuNOoRPgg-CE4De4Ny5Vh5w=" )
+r1 = Race.new(name: "Brest - Valparaíso", departure_flag: "🇫🇷", arrival_flag: "🇨🇱", starting_latitude: 48.3905283, starting_longitude: -4.4860088, ending_latitude: -32.78446, ending_longitude: -74.2037, duration: 5, difficulty: 1, photo: "https://media.istockphoto.com/id/924568342/fr/photo/paysage-urbain-de-la-ville-historique-valparaiso.jpg?s=612x612&w=0&k=20&c=HAkcKWFd9UR-4FLGyq1DWuNOoRPgg-CE4De4Ny5Vh5w=" )
 
 coordinates_1.each do |coordinates|
   r1.coordinates << coordinates
@@ -24,13 +24,13 @@ end
 r1.save!
 
 
-r2 = Race.create(name: "Saint-Malo - Le Cap", starting_latitude: 48.649518, starting_longitude: -2.0260409, ending_latitude: -33.928992, ending_longitude: 18.417396, duration: 4, difficulty: 2, photo: "https://media.istockphoto.com/id/477451698/fr/photo/monts-douze-ap%C3%B4tres-montagne-dans-des-camps-bay-le-cap-afrique-du-sud.jpg?s=612x612&w=0&k=20&c=0keU6rBLNjT0aKkrHTRU3bfZbJasd3-7BpW8cNRwdNs=" )
+r2 = Race.create(name: "Saint-Malo - Le Cap", departure_flag: "🇫🇷", arrival_flag: "🇿🇦", starting_latitude: 48.649518, starting_longitude: -2.0260409, ending_latitude: -33.928992, ending_longitude: 18.417396, duration: 4, difficulty: 2, photo: "https://media.istockphoto.com/id/477451698/fr/photo/monts-douze-ap%C3%B4tres-montagne-dans-des-camps-bay-le-cap-afrique-du-sud.jpg?s=612x612&w=0&k=20&c=0keU6rBLNjT0aKkrHTRU3bfZbJasd3-7BpW8cNRwdNs=" )
 
 coordinates_2.each do |coordinates|
   r2.coordinates << coordinates
 end
 r2.save!
-r3 = Race.create(name: "Kochi - Sambava", starting_latitude: 9.9674277, starting_longitude: 76.2454436, ending_latitude: -14.254956, ending_longitude: 50.1556533, duration: 2, difficulty: 3, photo: "https://www.grandeslatitudes.voyage/wp-content/uploads/2017/09/Baobabs-matin-3--e1509017110351.jpg" )
+r3 = Race.create(name: "Kochi - Sambava", departure_flag: "🇮🇳", arrival_flag: "🇲🇬", starting_latitude: 9.9674277, starting_longitude: 76.2454436, ending_latitude: -14.254956, ending_longitude: 50.1556533, duration: 2, difficulty: 3, photo: "https://www.grandeslatitudes.voyage/wp-content/uploads/2017/09/Baobabs-matin-3--e1509017110351.jpg" )
 coordinates_3.each do |coordinates|
   r3.coordinates << coordinates
 end
