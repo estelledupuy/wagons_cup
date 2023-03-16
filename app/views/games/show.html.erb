@@ -12,7 +12,7 @@
   data-map-game-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
   data-map-game-client-id-value="<%= ENV["CLIENT_ID"] %>"
   data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
-  
+
   <div class="navbar-game">
       <div class="navbar navbar-expand-sm navbar-light navbar-lewagon px-4">
             <a class="navbar-brand" href="">
@@ -26,11 +26,11 @@
       </div>
   </div>
 
-  
+
   <div class="d-flex">
 
     <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">
-      
+
       <div class="card poly">
         <div class="card-header d-flex">
             <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
@@ -38,7 +38,7 @@
               <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
          </div>
        </div>
-        
+
       <div class="card-body">
         <blockquote class="blockquote mb-0">
           <div data-map-game-target="allure" class="input-group">
@@ -53,7 +53,7 @@
           <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
         </blockquote>
       </div>
-      
+
     </div>
 
     <div data-controller="direction" data-direction-boat-id-value="<%= @boat.id %>" class="boussole" style="position:absolute" data-map-game-target="jointure" data-direction-windir-value="">
@@ -136,6 +136,9 @@
       </div>
       <img src="https://res.cloudinary.com/dwclozjta/image/upload/v1678720519/rose_des_vents_commandes_uruerr.png" alt="" style="position:absolute; height: 400px; left: -18px; z-index:0">
       <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678720519/boat_commandes_tvcjss.png" alt="touches drectionnelles" style="position:absolute; height: 400px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>">
+    </div>
+
+
 
       <div class="d-none">
         <%= simple_form_for(@boat, html: {data: { direction_target: "form"}}) do |f|%>
@@ -143,9 +146,5 @@
           <%= f.submit %>
         <% end %>
       </div>
-
-    </div>
   </div>
 </div>
-
-
