@@ -1,6 +1,8 @@
 
 <div
-  data-controller="map-game"
+  data-controller="map-game direction"
+  data-direction-windir-value=""
+  data-direction-boat-id-value="<%= @boat.id %>"
   data-map-game-boat-id-value="<%= @boat.id %>"
   data-map-game-marker-start-latitude-value="<%= @boat.game.race.starting_latitude%>"
   data-map-game-marker-start-longitude-value="<%= @boat.game.race.starting_longitude%>"
@@ -29,34 +31,36 @@
   </div>
 
   <div class="d-flex">
-      <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">
-        <div class="card poly">
-          <div class="card-header d-flex">
-              <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
-              <div class="h4 mt-3">wind :
-                <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
-          </div>
-        </div>
 
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <div data-map-game-target="allure" class="input-group">
-              <input type="text" aria-label="First name" class="form-control">
-            </div>
-            <div data-map-game-target="boat-speed" class="input-group mt-5">
-              <p>Boat's speed</p>
-            </div>
-            <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
-            <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
-            <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl "></i></div>
-            <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
-          </blockquote>
-        </div>
+    <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">
+
+      <div class="card poly">
+        <div class="card-header d-flex">
+          <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image me-3" alt="Image météo">
+          <div class="h4 mt-3 ms-4">wind :
+              <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
+          </div>
+       </div>
+
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <div data-direction-target="allure" class="card message-direction mt-3 ">Vaillant</div>
+          <div data-map-game-target="boat-speed" class="input-group mt-5 speed-boat">
+            <p>vitesse du boat : </p>
+          </div>
+          <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
+          <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
+          <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl "></i></div>
+          <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
+        </blockquote>
       </div>
-      <div data-controller="direction" data-direction-boat-id-value="<%= @boat.id %>" class="boussole" style="position:absolute" data-map-game-target="jointure" data-direction-windir-value="">
-        <div class="parent" style="position:relative">
-          <?xml version="1.0" encoding="UTF-8"?>
-          <svg data-map-game-target="wind" data-direction-target="wind" id="Commande" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg)">
+    </div>
+
+    <div class="boussole" style="position:absolute" data-map-game-target="jointure" >
+      <div class="parent" style="position:relative">
+        <?xml version="1.0" encoding="UTF-8"?>
+          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg)">
+
             <defs>
               <style>
                 .cls-1, .cls-2, .cls-3 {
