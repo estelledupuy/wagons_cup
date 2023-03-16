@@ -1,6 +1,5 @@
 
 <div
-  class="d-flex"
   data-controller="map-game"
   data-map-game-boat-id-value="<%= @boat.id %>"
   data-map-game-marker-start-latitude-value="<%= @boat.game.race.starting_latitude%>"
@@ -13,125 +12,140 @@
   data-map-game-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
   data-map-game-client-id-value="<%= ENV["CLIENT_ID"] %>"
   data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
-
-  <div data-map-game-target="map" style="width: 100%; height: 90vh; padding-top: 9px;">
-    <div class="card poly">
-      <div class="card-header d-flex">
-          <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
-          <div class="h4 mt-3">wind :
-            <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
-          </div>
+  
+  <div class="navbar-game">
+      <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+            <a class="navbar-brand" href="">
+              <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" />
+            </a>
+            <h5><%= @boat.game.race.departure_flag%> <%= @boat.game.race.name%> <%= @boat.game.race.arrival_flag %> </h5>
+            <h5 data-map-game-target="distance-arrival">5 miles restants</h5>
+            <h5 data-map-game-target="distance-departure">18 miles depuis Brest</h5>
+            <h5 data-map-game-target="speed-average">vitesse moyenne : 27 mph</h5>
+            <h5 data-map-game-target="days">jours : 15</h5>
       </div>
+  </div>
+
+  
+  <div class="d-flex">
+
+    <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">
+      
+      <div class="card poly">
+        <div class="card-header d-flex">
+            <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
+            <div class="h4 mt-3">wind :
+              <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
+         </div>
+       </div>
+        
       <div class="card-body">
         <blockquote class="blockquote mb-0">
-        <div data-map-game-target="allure" class="input-group">
-        <input type="text" aria-label="First name" class="form-control">
-        </div>
-        <div data-map-game-target="boat-speed" class="input-group mt-5">
-        <p>vitesse du boat</p>
-        </div>
-
-                    <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
-                    <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
-                    <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl "></i></div>
+          <div data-map-game-target="allure" class="input-group">
+            <input type="text" aria-label="First name" class="form-control">
+          </div>
+          <div data-map-game-target="boat-speed" class="input-group mt-5">
+            <p>vitesse du boat</p>
+          </div>
+          <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
+          <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
+          <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl "></i></div>
           <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
         </blockquote>
       </div>
-    </div>
-  </div>
-
-  <%# <div data-map-game-target="distance-info">
-  <p>Distance to arrival</p>
-  </div> %>
-
-
-  <div data-controller="direction" data-direction-boat-id-value="<%= @boat.id %>" class="boussole" style="position:absolute" data-map-game-target="jointure" data-direction-windir-value="">
-    <div class="parent" style="position:relative">
-      <?xml version="1.0" encoding="UTF-8"?>
-        <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg)">
-          <defs>
-            <style>
-              .cls-1, .cls-2, .cls-3, .cls-4 {
-                fill: none;
-              }
-
-              .cls-5 {
-                fill: #fff;
-              }
-
-              .cls-6 {
-                fill: #c1272d;
-              }
-
-              .cls-7 {
-                fill: #774634;
-              }
-
-              .cls-2 {
-                stroke-width: 5px;
-              }
-
-              .cls-2, .cls-3, .cls-4 {
-                stroke-miterlimit: 10;
-              }
-
-              .cls-2, .cls-4 {
-                stroke: #333;
-              }
-
-              .cls-3 {
-                stroke: #0b615f;
-                stroke-width: 133px;
-              }
-
-              .cls-4 {
-                stroke-width: 7px;
-              }
-            </style>
-          </defs>
-          <g id="Calque_2" data-name="Calque 2">
-            <rect class="cls-7" x="454" y="162.5" width="47" height="39" rx="6.48" ry="6.48"/>
-            <rect class="cls-7" x="456.8" y="755.5" width="47" height="62" rx="4.03" ry="4.03"/>
-            <path class="cls-6" d="m480.8,814.14l39.3-6.98c1.92-.27,3.34,1.57,2.39,3.09l-41.7,73.11c-.93,1.49-3.19,1.55-5,0l-40.78-73.23c.2-1.53,1.65-3.23,3.51-2.95l36.27,6.96"/>
-            <circle class="cls-3" cx="475.25" cy="477.75" r="209.25"/>
-            <line class="cls-2" x1="597.15" y1="548.83" x2="717" y2="614"/>
-            <line class="cls-2" x1="352.94" y1="547.26" x2="233" y2="614"/>
-            <circle class="cls-4" cx="475.25" cy="478.5" r="277"/>
-            <line class="cls-2" x1="342.02" y1="429.22" x2="216" y2="380"/>
-            <line class="cls-2" x1="367.97" y1="386.3" x2="266" y2="298"/>
-            <line class="cls-2" x1="385.92" y1="368.61" x2="301" y2="263"/>
-            <line class="cls-2" x1="405.34" y1="599.85" x2="336" y2="718"/>
-            <line class="cls-2" x1="545.63" y1="599.85" x2="616" y2="717"/>
-            <line class="cls-2" x1="608.02" y1="429.22" x2="734" y2="379"/>
-            <line class="cls-2" x1="583.03" y1="386.3" x2="686" y2="299"/>
-            <line class="cls-2" x1="565.08" y1="368.61" x2="651" y2="265"/>
-          </g>
-          <g id="Calque_5" data-name="Calque 5">
-            <path data-action="click->direction#angle" id="a8" data-value="8" class="cls-5" d="m246.63,481.68l2.55,14.33c.1.7-.57,1.22-1.13.87l-26.72-15.21c-.54-.34-.57-1.17,0-1.82l26.77-14.87c.56.07,1.18.6,1.08,1.28l-2.54,13.22"/>
-            <path data-action="click->direction#angle" id="a9" data-value="9" class="cls-5" d="m275.87,359.05l-4.51,13.84c-.24.66-1.08.8-1.41.24l-16.39-26.01c-.32-.56.05-1.29.86-1.61l30.61-.49c.46.33.76,1.09.35,1.64l-8.48,10.46"/>
-            <path data-action="click->direction#angle" id="a7" data-value="7" class="cls-5" d="m313.97,635.13l11.59,8.81c.55.45.4,1.28-.24,1.41l-29.95,6.93c-.63.12-1.21-.47-1.24-1.34l9.6-29.07c.46-.32,1.28-.36,1.66.21l7.09,11.45"/>
-            <path data-action="click->direction#angle" id="a6" data-value="6" class="cls-5" d="m479.68,704.9l14.33-2.55c.7-.1,1.22.57.87,1.13l-15.21,26.72c-.34.54-1.17.57-1.82,0l-14.87-26.77c.07-.56.6-1.18,1.28-1.08l13.22,2.54"/>
-            <path data-action="click->direction#angle" id="a10" data-value="10" class="cls-5 active" d="m311.72,311.47l-8.83,11.57c-.45.55-1.29.4-1.41-.24l-6.86-29.97c-.12-.63.48-1.2,1.34-1.23l29.05,9.67c.32.46.36,1.28-.21,1.66l-11.46,7.07"/>
-            <path data-action="click->direction#angle" id="a1" data-value="1" class="cls-5" d="m478.3,243.05l-14.33,2.55c-.7.1-1.22-.57-.87-1.13l15.21-26.72c.34-.54,1.17-.57,1.82,0l14.87,26.77c-.07.56-.6,1.18-1.28,1.08l-13.22-2.54"/>
-            <path data-action="click->direction#angle" id="a5" data-value="5" class="cls-5" d="m640.28,633.81l8.32-11.95c.43-.56,1.27-.46,1.42.18l8.16,29.64c.15.62-.42,1.22-1.29,1.29l-29.45-8.39c-.34-.45-.41-1.26.14-1.67l11.15-7.56"/>
-            <path data-action="click->direction#angle" id="a4" data-value="4" class="cls-5" d="m697.47,480.31l-2.55-14.33c-.1-.7.57-1.22,1.13-.87l26.72,15.21c.54.34.57,1.17,0,1.82l-26.77,14.87c-.56-.07-1.18-.6-1.08-1.28l2.54-13.22"/>
-            <path data-action="click->direction#angle" id="a3" data-value="3" class="cls-5" d="m678.31,358l-8.66-11.71c-.4-.58-.03-1.35.62-1.28l30.7,1.75c.64.06,1.02.79.81,1.63l-17.37,25.21c-.53.18-1.33-.01-1.53-.67l-3.6-12.98"/>
-            <path data-action="click->direction#angle" id="a2" data-value="2" class="cls-5" d="m638.85,310.31l-12.07-8.14c-.57-.42-.48-1.26.16-1.42l29.52-8.61c.62-.16,1.23.4,1.31,1.27l-7.95,29.57c-.44.35-1.26.43-1.67-.12l-7.73-11.03"/>
-          </g>
-          <g id="Calque_4" data-name="Calque 4">
-            <rect class="cls-1" width="952" height="952"/>
-          </g>
-        </svg>
-    </div>
-    <img src="https://res.cloudinary.com/dwclozjta/image/upload/v1678720519/rose_des_vents_commandes_uruerr.png" alt="" style="position:absolute; height: 400px; left: -18px; z-index:0">
-    <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678720519/boat_commandes_tvcjss.png" alt="touches drectionnelles" style="position:absolute; height: 400px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>">
-
-    <div class="d-none">
-      <%= simple_form_for(@boat, html: {data: { direction_target: "form"}}) do |f|%>
-        <%= f.input :direction, input_html: {data: { direction_target: "input"}} %>
-        <%= f.submit %>
-      <% end %>
+      
     </div>
 
+    <div data-controller="direction" data-direction-boat-id-value="<%= @boat.id %>" class="boussole" style="position:absolute" data-map-game-target="jointure" data-direction-windir-value="">
+      <div class="parent" style="position:relative">
+        <?xml version="1.0" encoding="UTF-8"?>
+          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg)">
+            <defs>
+              <style>
+                .cls-1, .cls-2, .cls-3, .cls-4 {
+                  fill: none;
+                }
+
+                .cls-5 {
+                  fill: #fff;
+                }
+
+                .cls-6 {
+                  fill: #c1272d;
+                }
+
+                .cls-7 {
+                  fill: #774634;
+                }
+
+                .cls-2 {
+                  stroke-width: 5px;
+                }
+
+                .cls-2, .cls-3, .cls-4 {
+                  stroke-miterlimit: 10;
+                }
+
+                .cls-2, .cls-4 {
+                  stroke: #333;
+                }
+
+                .cls-3 {
+                  stroke: #0b615f;
+                  stroke-width: 133px;
+                }
+
+                .cls-4 {
+                  stroke-width: 7px;
+                }
+              </style>
+            </defs>
+            <g id="Calque_2" data-name="Calque 2">
+              <rect class="cls-7" x="454" y="162.5" width="47" height="39" rx="6.48" ry="6.48"/>
+              <rect class="cls-7" x="456.8" y="755.5" width="47" height="62" rx="4.03" ry="4.03"/>
+              <path class="cls-6" d="m480.8,814.14l39.3-6.98c1.92-.27,3.34,1.57,2.39,3.09l-41.7,73.11c-.93,1.49-3.19,1.55-5,0l-40.78-73.23c.2-1.53,1.65-3.23,3.51-2.95l36.27,6.96"/>
+              <circle class="cls-3" cx="475.25" cy="477.75" r="209.25"/>
+              <line class="cls-2" x1="597.15" y1="548.83" x2="717" y2="614"/>
+              <line class="cls-2" x1="352.94" y1="547.26" x2="233" y2="614"/>
+              <circle class="cls-4" cx="475.25" cy="478.5" r="277"/>
+              <line class="cls-2" x1="342.02" y1="429.22" x2="216" y2="380"/>
+              <line class="cls-2" x1="367.97" y1="386.3" x2="266" y2="298"/>
+              <line class="cls-2" x1="385.92" y1="368.61" x2="301" y2="263"/>
+              <line class="cls-2" x1="405.34" y1="599.85" x2="336" y2="718"/>
+              <line class="cls-2" x1="545.63" y1="599.85" x2="616" y2="717"/>
+              <line class="cls-2" x1="608.02" y1="429.22" x2="734" y2="379"/>
+              <line class="cls-2" x1="583.03" y1="386.3" x2="686" y2="299"/>
+              <line class="cls-2" x1="565.08" y1="368.61" x2="651" y2="265"/>
+            </g>
+            <g id="Calque_5" data-name="Calque 5">
+              <path data-action="click->direction#angle" id="a8" data-value="8" class="cls-5" d="m246.63,481.68l2.55,14.33c.1.7-.57,1.22-1.13.87l-26.72-15.21c-.54-.34-.57-1.17,0-1.82l26.77-14.87c.56.07,1.18.6,1.08,1.28l-2.54,13.22"/>
+              <path data-action="click->direction#angle" id="a9" data-value="9" class="cls-5" d="m275.87,359.05l-4.51,13.84c-.24.66-1.08.8-1.41.24l-16.39-26.01c-.32-.56.05-1.29.86-1.61l30.61-.49c.46.33.76,1.09.35,1.64l-8.48,10.46"/>
+              <path data-action="click->direction#angle" id="a7" data-value="7" class="cls-5" d="m313.97,635.13l11.59,8.81c.55.45.4,1.28-.24,1.41l-29.95,6.93c-.63.12-1.21-.47-1.24-1.34l9.6-29.07c.46-.32,1.28-.36,1.66.21l7.09,11.45"/>
+              <path data-action="click->direction#angle" id="a6" data-value="6" class="cls-5" d="m479.68,704.9l14.33-2.55c.7-.1,1.22.57.87,1.13l-15.21,26.72c-.34.54-1.17.57-1.82,0l-14.87-26.77c.07-.56.6-1.18,1.28-1.08l13.22,2.54"/>
+              <path data-action="click->direction#angle" id="a10" data-value="10" class="cls-5 active" d="m311.72,311.47l-8.83,11.57c-.45.55-1.29.4-1.41-.24l-6.86-29.97c-.12-.63.48-1.2,1.34-1.23l29.05,9.67c.32.46.36,1.28-.21,1.66l-11.46,7.07"/>
+              <path data-action="click->direction#angle" id="a1" data-value="1" class="cls-5" d="m478.3,243.05l-14.33,2.55c-.7.1-1.22-.57-.87-1.13l15.21-26.72c.34-.54,1.17-.57,1.82,0l14.87,26.77c-.07.56-.6,1.18-1.28,1.08l-13.22-2.54"/>
+              <path data-action="click->direction#angle" id="a5" data-value="5" class="cls-5" d="m640.28,633.81l8.32-11.95c.43-.56,1.27-.46,1.42.18l8.16,29.64c.15.62-.42,1.22-1.29,1.29l-29.45-8.39c-.34-.45-.41-1.26.14-1.67l11.15-7.56"/>
+              <path data-action="click->direction#angle" id="a4" data-value="4" class="cls-5" d="m697.47,480.31l-2.55-14.33c-.1-.7.57-1.22,1.13-.87l26.72,15.21c.54.34.57,1.17,0,1.82l-26.77,14.87c-.56-.07-1.18-.6-1.08-1.28l2.54-13.22"/>
+              <path data-action="click->direction#angle" id="a3" data-value="3" class="cls-5" d="m678.31,358l-8.66-11.71c-.4-.58-.03-1.35.62-1.28l30.7,1.75c.64.06,1.02.79.81,1.63l-17.37,25.21c-.53.18-1.33-.01-1.53-.67l-3.6-12.98"/>
+              <path data-action="click->direction#angle" id="a2" data-value="2" class="cls-5" d="m638.85,310.31l-12.07-8.14c-.57-.42-.48-1.26.16-1.42l29.52-8.61c.62-.16,1.23.4,1.31,1.27l-7.95,29.57c-.44.35-1.26.43-1.67-.12l-7.73-11.03"/>
+            </g>
+            <g id="Calque_4" data-name="Calque 4">
+              <rect class="cls-1" width="952" height="952"/>
+            </g>
+          </svg>
+      </div>
+      <img src="https://res.cloudinary.com/dwclozjta/image/upload/v1678720519/rose_des_vents_commandes_uruerr.png" alt="" style="position:absolute; height: 400px; left: -18px; z-index:0">
+      <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678720519/boat_commandes_tvcjss.png" alt="touches drectionnelles" style="position:absolute; height: 400px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>">
+
+      <div class="d-none">
+        <%= simple_form_for(@boat, html: {data: { direction_target: "form"}}) do |f|%>
+          <%= f.input :direction, input_html: {data: { direction_target: "input"}} %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+
+    </div>
   </div>
 </div>
+
+
