@@ -1,9 +1,11 @@
-import { DataQuality } from "@aerisweather/mapsgl";
+import { Color, DataQuality } from "@aerisweather/mapsgl";
 import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="direction"
 export default class extends Controller {
-  static targets = [ "boatSelector", "wind", "input", "form", "allure" ];
+
+  static targets = [ "boatSelector", "wind", "input", "form", "fill", "allure" ];
+
   static values = {
     windir: Number,
     boatId: Number
@@ -15,6 +17,13 @@ export default class extends Controller {
   }
 
   async angle(event) {
+    document.querySelectorAll('.fill').forEach((item) => {
+      item.classList.remove('fill')
+    })
+
+    const section = document.querySelector(`#Section_${event.params.section} path`)
+    section.classList.add('fill')
+
      console.log(event.currentTarget.attributes.id.value);
      const id = event.currentTarget.attributes.id.value;
      var alphaBoat = 0
@@ -77,5 +86,17 @@ export default class extends Controller {
      const data = await response.json();
 
     //  pass on "direction" to update of boat >> via submit form (input.value = ...)
+
+  }
+  color() {
+    console.log('hello');
+    const elem = document.querySelector(".fill");
+    if (elem) {
+      this.elem.classList.remove('fill')
+      this.fillTarget.classList.add('fill')
+    }
+    else {
+      this.fillTarget.classList.add('fill')
+    }
   }
 }
