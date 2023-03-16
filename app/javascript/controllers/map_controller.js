@@ -20,7 +20,7 @@ export default class extends Controller {
 
     this.map = new mapboxgl.Map({
       container: this.mapTarget,
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/gwenoladlv/clf9shka7002201s0vry3ik33',
       center: [2.3488, 48.85341],
       trackResize: false,
       zoom: 0,
