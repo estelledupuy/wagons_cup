@@ -31,7 +31,7 @@ export default class extends Controller {
 
     this.map = new mapboxgl.Map({
       container: this.mapTarget,
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/gwenoladlv/clf9shka7002201s0vry3ik33',
       center: [2.3488, 48.85341],
       zoom: 0,
     })
@@ -76,7 +76,7 @@ export default class extends Controller {
           paint: {
               particle: {
                   count: Math.pow(150, 2), // using a power of two, e.g. 65536
-                  size: 1,
+                  size: 2,
                   speed: 1,
                   trailsFade: 0.93,
                   dropRate: 0.005
@@ -191,7 +191,7 @@ export default class extends Controller {
   }
 
   addPointOnMap() {
-    const size = 100;
+    const size = 150;
     var that = this
     // This implements `StyleImageInterface`
     // to draw a pulsing dot icon on the map.
@@ -228,7 +228,7 @@ export default class extends Controller {
           0,
           Math.PI * 2
         );
-        context.fillStyle = `rgba(255, 200, 200, ${1 - t})`;
+        context.fillStyle = `rgba(255, 254, 199, ${1 - t})`;
         context.fill();
 
         // Draw the inner circle.
@@ -240,7 +240,7 @@ export default class extends Controller {
           0,
           Math.PI * 2
         );
-        context.fillStyle = 'rgba(255, 100, 100, 1)';
+        context.fillStyle = 'rgba(249, 212, 86, 1)';
         context.strokeStyle = 'white';
         context.lineWidth = 2 + 4 * (1 - t);
         context.fill();
@@ -263,46 +263,38 @@ export default class extends Controller {
       }
     };
 
-      this.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
-      // setup the viewport
-      setTimeout(() => {
-        this.map.jumpTo({ 'center': [this.boatLongitudeValue, this.boatLatitudeValue] , 'zoom': 3 });
-        // this.map.setPitch(30);
-      }, 2000)
-
-      // Load an image from an external URL.
-      this.map.loadImage('https://res.cloudinary.com/dwclozjta/image/upload/v1678870732/bateau_lemon_op5dfw_r7p18j.png', (error, image) => {
-      if (error) throw error;
-      // Add the loaded image to the style's sprite with the ID 'kitten'.
-      this.map.addImage('boat', image);
-      });
+    this.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+    // setup the viewport
+    setTimeout(() => {
+      this.map.jumpTo({ 'center': [this.boatLongitudeValue, this.boatLatitudeValue] , 'zoom': 3 });
+      // this.map.setPitch(30);
+    }, 2000)
 
 
-      this.map.addSource('dot-point', {
-        'type': 'geojson',
-        'data': {
-          'type': 'FeatureCollection',
-          'features': [
-            {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [this.boatLongitudeValue, this.boatLatitudeValue] // icon position [lng, lat]
-              }
+    this.map.addSource('dot-point', {
+      'type': 'geojson',
+      'data': {
+        'type': 'FeatureCollection',
+        'features': [
+          {
+          'type': 'Feature',
+          'geometry': {
+              'type': 'Point',
+              'coordinates': [this.boatLongitudeValue, this.boatLatitudeValue] // icon position [lng, lat]
             }
-          ]
-        }
-      });
-
-      this.map.addLayer({
-        'id': 'layer-with-pulsing-dot',
-        'type': 'symbol',
-        'source': 'dot-point',
-        'layout': {
-          'icon-image': 'boat',
-          'icon-size': 0.05,
           }
-      });
+        ]
+      }
+    });
+
+    this.map.addLayer({
+      'id': 'layer-with-pulsing-dot',
+      'type': 'symbol',
+      'source': 'dot-point',
+      'layout': {
+        'icon-image': 'pulsing-dot'
+      }
+    })
   }
 
   toggleWindLayer() {
