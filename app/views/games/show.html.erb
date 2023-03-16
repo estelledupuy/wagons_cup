@@ -15,29 +15,27 @@
   data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
 
   <div data-map-game-target="map" style="width: 100%; height: 90vh; padding-top: 9px;">
-    <div class="boutton-navigue">
-      <button class="weather-button mt-5" data-bs-toggle="modal" data-bs-target="#UserChoiceModal">
-        <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
-      </button>
-      <div class="modal" id="UserChoiceModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Informations</h5>
-            </div>
-              <div class="modal-body">
-                <p>Longitude:  <%= @boat.longitude%></p>
-                <p>Latitude:  <%= @boat.latitude%></p>
-                <p>Temperature:  <%= @tempc %> c°</p>
-                <p>Wind speed:  <%= @wind_speedy %> Mph</p>
-                <p>Wind direction:  <%= @wind_direction %> °</p>
-                <p>Weather:  <%= @weather %></p>
-                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
-                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
-                <div class="btn btn-navigation" style="margin-top: 40px;" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
-              </div>
+    <div class="card poly">
+      <div class="card-header d-flex">
+          <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
+          <div class="h4 mt-3">wind :
+            <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
           </div>
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+        <div data-map-game-target="allure" class="input-group">
+        <input type="text" aria-label="First name" class="form-control">
         </div>
+        <div data-map-game-target="boat-speed" class="input-group mt-5">
+        <p>vitesse du boat</p>
+        </div>
+
+                    <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
+                    <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
+                    <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl "></i></div>
+          <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
+        </blockquote>
       </div>
     </div>
   </div>

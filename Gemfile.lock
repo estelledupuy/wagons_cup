@@ -245,6 +245,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoes (3.0.1)
     sidekiq (6.5.8)
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
@@ -317,6 +318,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.2)
   sassc-rails
   selenium-webdriver
+  shoes
   sidekiq (~> 6.0)
   sidekiq-failures (~> 1.0)
   sidekiq-scheduler

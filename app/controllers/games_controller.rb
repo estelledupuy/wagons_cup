@@ -1,6 +1,7 @@
 require "open-uri"
 require 'json'
 
+
 class GamesController < ApplicationController
   def new
     @game = Game.new
@@ -25,5 +26,7 @@ class GamesController < ApplicationController
     @wind_direction = data['response'].first['ob']['windDirDEG']
     @weather = data['response'].first['ob']['weather']
     @tempc = data['response'].first['ob']['tempC']
+    @winddir = data['response'].first['ob']['windDir']
   end
+
 end
