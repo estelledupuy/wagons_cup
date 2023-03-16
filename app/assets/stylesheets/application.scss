@@ -20,3 +20,7 @@
 #boat {
   transition: all .5s ease-in-out;
 }
+
+#game-map {
+  height: calc(100vh - 50px);
+}

@@ -36,7 +36,6 @@ export default class extends Controller {
       zoom: 0,
     })
 
-    this.map.setRenderWorldCopies(false);
 
     this.setCable();
     this.setAeris();
