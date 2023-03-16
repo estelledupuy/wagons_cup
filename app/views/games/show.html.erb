@@ -24,15 +24,12 @@
             <h5 class="text-center" data-map-game-target="ddeparture"></h5>
             <h5 class="text-center" ><%= @boat.game.race.arrival_flag%> <%= @boat.game.race.arrival_port%></h5>
             <h5 class="text-center" data-map-game-target="darrival"></h5>
-
-            <h5 data-map-game-target="average-speed">vitesse moyenne : 27 mph</h5>
-            <h5 data-map-game-target="days">jours : 15</h5>
       </div>
   </div>
 
   <div class="d-flex">
 
-    <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">
+    <div id="game-map" data-map-game-target="map" style="width: 100%; padding-top: 9px;">
 
       <div class="card poly">
         <div class="card-header d-flex">
@@ -44,14 +41,11 @@
 
       <div class="card-body">
         <blockquote class="blockquote mb-0">
-          <div data-direction-target="allure" class="card message-direction mt-3 ">Vaillant</div>
-          <div data-map-game-target="boat-speed" class="input-group mt-5 speed-boat">
-            <p>vitesse du boat : </p>
-          </div>
+          <p style="text-align:center"><strong>Vous naviguez en :</strong></p>
+          <div data-direction-target="allure" class="card message-direction mt-3 "></div>
           <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
-          <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
-          <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl "></i></div>
-          <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
+          <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud text-warning text-center fa-xl"></i></div>
+          <div class="btn btn-navigation" data-action="click->map-game#toggleWindLayer"><i class="fa-sharp fa-solid fa-wind text-warning text-center fa-xl "></i></div>
         </blockquote>
       </div>
     </div>
@@ -59,7 +53,7 @@
     <div class="boussole" style="position:absolute" data-map-game-target="jointure" >
       <div class="parent" style="position:relative">
         <?xml version="1.0" encoding="UTF-8"?>
-          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg); bottom:1vh">
+          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 350px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg); bottom:1vh">
 
             <defs>
               <style>
@@ -156,7 +150,7 @@
             <rect id="Border" class="cls-1" width="952" height="952"/>
           </svg>
         </div>
-        <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678960217/boat_commandes_yellow_xjcscb.png" alt="touches drectionnelles" style="position:absolute; height: 400px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>; z-index: 1; bottom:1vh">
+        <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678960217/boat_commandes_yellow_xjcscb.png" alt="touches drectionnelles" style="position:absolute; height: 350px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>; z-index: 1; bottom:1vh">
 
         <div class="d-none">
           <%= simple_form_for(@boat, html: {data: { direction_target: "form"}}) do |f|%>
