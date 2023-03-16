@@ -12,25 +12,27 @@
   data-map-game-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
   data-map-game-client-id-value="<%= ENV["CLIENT_ID"] %>"
   data-map-game-client-secret-value="<%= ENV["CLIENT_SECRET"] %>">
-  
+
   <div class="navbar-game">
       <div class="navbar navbar-expand-sm navbar-light navbar-lewagon px-4">
             <a class="navbar-brand" href="">
               <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" />
             </a>
-            <h5 class="text-center"><%= @boat.game.race.departure_flag%>  <%= @boat.game.race.name%>  <%= @boat.game.race.arrival_flag %> </h5>
-            <h5 data-map-game-target="distance-arrival">5 miles restants</h5>
-            <h5 data-map-game-target="distance-departure">18 miles depuis Brest</h5>
-            <h5 data-map-game-target="speed-average">vitesse moyenne : 27 mph</h5>
+            <h5 class="text-center" ><%= @boat.game.race.departure_flag%> <%= @boat.game.race.departure_port%></h5>
+            <h5 class="text-center" data-map-game-target="ddeparture"></h5>
+            <h5 class="text-center" ><%= @boat.game.race.arrival_flag%> <%= @boat.game.race.arrival_port%></h5>
+            <h5 class="text-center" data-map-game-target="darrival"></h5>
+
+            <h5 data-map-game-target="average-speed">vitesse moyenne : 27 mph</h5>
             <h5 data-map-game-target="days">jours : 15</h5>
       </div>
   </div>
 
-  
+
   <div class="d-flex">
 
     <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">
-      
+
       <div class="card poly">
         <div class="card-header d-flex">
             <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image" alt="Image météo">
@@ -38,14 +40,14 @@
               <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
          </div>
        </div>
-        
+
       <div class="card-body">
         <blockquote class="blockquote mb-0">
           <div data-map-game-target="allure" class="input-group">
             <input type="text" aria-label="First name" class="form-control">
           </div>
-          <div data-map-game-target="boat-speed" class="input-group mt-5">
-            <p>vitesse du boat</p>
+          <div data-map-game-target="boatspeed" class="input-group mt-5">
+            <p>your speed</p>
           </div>
           <div class="btn btn-navigation" data-action="click->map-game#togglePrecipitationsLayer"> <i class="fa-solid fa-cloud-showers-water text-warning text-center fa-xl"></i></div>
           <div class="btn btn-navigation" data-action="click->map-game#toggleRadarLayer"><i class="fa-solid fa-cloud-sun-rain text-warning text-center fa-xl"></i></div>
@@ -53,7 +55,7 @@
           <footer class="blockquote-footer">stormy crossing power <cite title="Source Title">4</cite></footer>
         </blockquote>
       </div>
-      
+
     </div>
 
     <div data-controller="direction" data-direction-boat-id-value="<%= @boat.id %>" class="boussole" style="position:absolute" data-map-game-target="jointure" data-direction-windir-value="">
@@ -147,5 +149,3 @@
     </div>
   </div>
 </div>
-
-

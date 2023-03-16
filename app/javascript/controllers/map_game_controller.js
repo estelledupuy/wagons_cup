@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map", "wind", "boatSelector", "jointure", "rain","distance-arrival", "distance-departure", "speed-average", "days"]
+  static targets = ["distance-info", "map", "wind", "boatSelector", "jointure", "rain","darrival", "boatspeed", "ddeparture", "averageSpeed", "days"]
 
   connect() {
     this.windLayer = false
@@ -126,8 +126,6 @@ export default class extends Controller {
     this.jointureTarget.dataset.directionwindirValue = wind_dir
     var coordinates = [data.longitude, data.latitude]
     var distance = this.distanceCalculation(coordinates)
-    console.log(distance)
-    this.distanceTarget.innerText = `${distance} miles to arrival`
     const geojson = {
       'type': 'FeatureCollection',
       'features': [{
@@ -142,9 +140,8 @@ export default class extends Controller {
   }
 
   updateDashboard(data) {
-    this.distanceArrivalTarget.innerText = `${data.arrival_dist} miles`
-    this.distanceDepartureTarget.innerText = `${data.departure_dist} miles`
-    this.boatSpeedTarget.innerText = `${data.boat_speed} miles`
+    this.darrivalTarget.innerText =`: ${Math.round(data.arrival_dist)} miles`
+    this.ddepartureTarget.innerText = `: ${Math.round(data.departure_dist)} miles`
   }
 
   tiltWithWind(data) {
