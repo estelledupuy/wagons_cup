@@ -59,7 +59,7 @@
     <div class="boussole" style="position:absolute" data-map-game-target="jointure" >
       <div class="parent" style="position:relative">
         <?xml version="1.0" encoding="UTF-8"?>
-          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg)">
+          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 400px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg); bottom:1vh">
 
             <defs>
               <style>
@@ -156,7 +156,7 @@
             <rect id="Border" class="cls-1" width="952" height="952"/>
           </svg>
         </div>
-        <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678960217/boat_commandes_yellow_xjcscb.png" alt="touches drectionnelles" style="position:absolute; height: 400px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>; z-index: 1;">
+        <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678960217/boat_commandes_yellow_xjcscb.png" alt="touches drectionnelles" style="position:absolute; height: 400px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>; z-index: 1; bottom:1vh">
 
         <div class="d-none">
           <%= simple_form_for(@boat, html: {data: { direction_target: "form"}}) do |f|%>

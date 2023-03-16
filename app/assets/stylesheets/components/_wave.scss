@@ -1,4 +1,4 @@
-.wave1, .wave2{height: 30px;position: absolute;width: 100%;z-index: 12;left: 0;bottom: 0;}
+.wave1, .wave2{height: 30px;width: 100%;z-index: 1;left: 0;bottom: 0;}
 
 .wave1 {
   -webkit-animation: wave-animation1 8.7s infinite linear; /* Safari 4+ */

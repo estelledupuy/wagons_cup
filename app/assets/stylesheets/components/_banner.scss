@@ -5,17 +5,18 @@
 }
 
 .boat {
-  height: 385px;
+  bottom: 1rem;
+  right: 0;
+  width: 20%;
+  z-index: 7;
   position: absolute;
-  left: 257px;
-  top: 383px;
 }
 
 .main-title {
   color: white;
-  margin-left: 504px;
+  /* margin-left: 504px; */
   font-size: 60px;
-  padding-top: 150px;
+  padding-top: 30vh;
 }
 
 .wave {
@@ -41,17 +42,19 @@
 }
 
 .underline {
-  height: 30px;
+  height: 70%;
   position: absolute;
-  right: 8%;
-  top: 1135px;
+  right: 0;
+  bottom: 0em;
 }
 
 .arrow {
+  z-index: 5;
   position: absolute;
-  height: 735px;
+  height: 88vh;
   right: 0;
-  top: 90px;
+  top: 4rem;
+  width: 100vw;
 }
 
 // .banner h1 {
