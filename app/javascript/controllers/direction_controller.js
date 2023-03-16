@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="direction"
 export default class extends Controller {
-  static targets = [ "boatSelector", "wind", "input", "form" ];
+  static targets = [ "boatSelector", "wind", "input", "form", "allure" ];
   static values = {
     windir: Number,
     boatId: Number
@@ -18,42 +18,53 @@ export default class extends Controller {
      console.log(event.currentTarget.attributes.id.value);
      const id = event.currentTarget.attributes.id.value;
      var alphaBoat = 0
+     var messageDirection = ""
      if (id==="a1") {
        alphaBoat = this.windirValue + 45 + 0
+       messageDirection ="Vent de face"
        }
      if (id==="a2") {
        alphaBoat = this.windirValue + 45 + 44
+       messageDirection ="Prés"
        }
      if (id==="a3") {
        alphaBoat = this.windirValue + 45 + 59
+       messageDirection ="Bon plein"
        }
      if (id==="a4") {
        alphaBoat = this.windirValue + 45 + 90
+       messageDirection ="Travers"
        }
      if (id==="a5") {
        alphaBoat = this.windirValue + 45 + 133
+       messageDirection ="Grand largue"
        }
      if (id==="a6") {
        alphaBoat = this.windirValue + 45 + 178
+       messageDirection ="Vent arrière"
        }
      if (id==="a7") {
        alphaBoat = this.windirValue + 45 + 225
+       messageDirection ="Grand largue"
        }
      if (id==="a8") {
        alphaBoat = this.windirValue + 45 + 268
+       messageDirection ="Travers"
        }
      if (id==="a9") {
        alphaBoat = this.windirValue + 45 + 300
+       messageDirection ="Bon plein"
        }
      if (id==="a10") {
        alphaBoat = this.windirValue + 45 + 315
+       messageDirection ="Prés"
        }
 
       console.log(alphaBoat)
      this.windTarget.style.transform = `rotate(${this.windirValue }deg)`
      this.boatSelectorTarget.style.transform = `rotate(${alphaBoat}deg)`
      this.inputTarget.value = event.currentTarget.dataset.value
-
+     this.allureTarget.innerHTML = messageDirection
 
      const options = {
       method: 'PATCH',
