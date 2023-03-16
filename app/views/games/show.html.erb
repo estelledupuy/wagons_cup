@@ -18,14 +18,15 @@
             <a class="navbar-brand" href="">
               <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" />
             </a>
-            <h5 class="text-center"><%= @boat.game.race.departure_flag%>  <%= @boat.game.race.name%>  <%= @boat.game.race.arrival_flag %> </h5>
-            <h5 data-map-game-target="distance-arrival">5 miles restants</h5>
-            <h5 data-map-game-target="distance-departure">18 miles depuis Brest</h5>
-            <h5 data-map-game-target="speed-average">vitesse moyenne : 27 mph</h5>
+            <h5 class="text-center" ><%= @boat.game.race.departure_flag%> <%= @boat.game.race.departure_port%></h5>
+            <h5 class="text-center" data-map-game-target="ddeparture"></h5>
+            <h5 class="text-center" ><%= @boat.game.race.arrival_flag%> <%= @boat.game.race.arrival_port%></h5>
+            <h5 class="text-center" data-map-game-target="darrival"></h5>
+
+            <h5 data-map-game-target="average-speed">vitesse moyenne : 27 mph</h5>
             <h5 data-map-game-target="days">jours : 15</h5>
       </div>
   </div>
-
 
   <div class="d-flex">
       <div data-map-game-target="map" style="width: 100%; height: 100vh; padding-top: 9px;">

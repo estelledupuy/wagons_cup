@@ -13,7 +13,7 @@ class ComputeNewPosition
     return nil unless success?
 
     time_interval = (0.16666).fdiv(60) # inputs in minutes, output in hours
-    adj_coeff = 150 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
+    adj_coeff = 100 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
     #info extracted from API, in degrees
     # boat_speed = allure-derived coeff * wind_speed
     # DIRECTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] avec 1: vent debout (0°), 2 & 10: Près (45°); 3 & 9: Bon près (60°);
@@ -22,7 +22,7 @@ class ComputeNewPosition
     # https://fr.wikipedia.org/wiki/Allure_(marine)
     case @direction
     when 1
-      allure_coeff = -10%
+      allure_coeff = -5%
       gamma = @wind_direction - 180
     when 2
       allure_coeff = 90%
@@ -37,10 +37,10 @@ class ComputeNewPosition
       allure_coeff = 170%
       gamma = @wind_direction - 60 - 180
     when 4
-      allure_coeff = 250%
+      allure_coeff = 220%
       gamma = @wind_direction - 90 - 180
     when 8
-      allure_coeff = 250%
+      allure_coeff = 220%
       gamma = @wind_direction + 90 - 180
     when 5
       allure_coeff = 120%
@@ -69,8 +69,6 @@ class ComputeNewPosition
     arrival_dist = Geocoder::Calculations.distance_between([new_lat, new_lon], arrival_coord)
     departure_dist = Geocoder::Calculations.distance_between([new_lat, new_lon], departure_coord)
 
-    # av_boat_speed =
-    # days_travel =
 
     return [new_lat, new_lon, @wind_direction, arrival_dist, departure_dist, boat_speed]
   end
