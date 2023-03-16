@@ -29,11 +29,6 @@ export default class extends Controller {
 
     mapboxgl.accessToken = this.apiKeyValue
 
-    var from = turf.point([-75.343, 39.984]);
-          var to = turf.point([-75.534, 39.123]);
-          var options = {units: 'miles'};
-          var distance = turf.distance(from, to, options);
-
     this.map = new mapboxgl.Map({
       container: this.mapTarget,
       style: 'mapbox://styles/mapbox/satellite-v9',
@@ -115,6 +110,7 @@ export default class extends Controller {
 
   refresh(data) {
     this.updateGeoJson(data);
+    this.updateDashboard(data);
     this.tiltWithWind(data);
   }
 
@@ -134,6 +130,12 @@ export default class extends Controller {
       }]
     }
     this.map.getSource('dot-point').setData(geojson);
+  }
+
+  updateDashboard(data) {
+    this.distanceArrivalTarget.innerText = `${data.arrival_dist} miles`
+    this.distanceDepartureTarget.innerText = `${data.departure_dist} miles`
+    this.boatSpeedTarget.innerText = `${data.boat_speed} miles`
   }
 
   tiltWithWind(data) {
