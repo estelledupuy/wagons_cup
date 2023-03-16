@@ -1,10 +1,11 @@
 .btn-navigation {
   border-radius: 50%;
-  background-color: $blue;
+  background-color: transparent;
   height: 80px;
   width: 80px;
   padding: 24px;
   padding-inline: 27px;
   padding-top: 26px;
   margin: auto auto;
+  z-index: 2;
 }

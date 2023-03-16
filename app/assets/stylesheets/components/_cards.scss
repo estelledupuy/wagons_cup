@@ -98,3 +98,21 @@
   border-top-right-radius: 45px;
   height: 595px;
 }
+
+.poly {
+  background-size: cover;
+  background-position: center;
+  background-color: #00000056;
+  width: 289px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: 1px solid #fff;
+  margin-left: 1135px;
+  margin-top: 50px;
+  z-index: 2;
+}
