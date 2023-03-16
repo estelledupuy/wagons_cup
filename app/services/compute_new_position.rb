@@ -12,7 +12,7 @@ class ComputeNewPosition
     get_wind_info
     return nil unless success?
 
-    time_interval = (0.16).fdiv(60) # inputs in minutes, output in hours
+    time_interval = (0.16666).fdiv(60) # inputs in minutes, output in hours
     adj_coeff = 150 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
     #info extracted from API, in degrees
     # boat_speed = allure-derived coeff * wind_speed
@@ -63,7 +63,16 @@ class ComputeNewPosition
     new_lat = @boat.latitude + lat_change
     new_lon = @boat.longitude + lon_change
 
-    return [new_lat, new_lon, @wind_direction]
+    arrival_coord = [@boat.game.race.ending_latitude, @boat.game.race.ending_longitude]
+    departure_coord = [@boat.game.race.starting_latitude, @boat.game.race.starting_longitude]
+
+    arrival_dist = Geocoder::Calculations.distance_between([new_lat, new_lon], arrival_coord)
+    departure_dist = Geocoder::Calculations.distance_between([new_lat, new_lon], departure_coord)
+
+    # av_boat_speed =
+    # days_travel =
+
+    return [new_lat, new_lon, @wind_direction, arrival_dist, departure_dist, boat_speed]
   end
 
   private
