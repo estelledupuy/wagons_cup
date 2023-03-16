@@ -19,7 +19,7 @@ export default class extends Controller {
     boatId: Number,
   }
 
-  static targets = ["distance-info", "map", "wind", "boatSelector", "jointure", "rain"]
+  static targets = ["distance-info", "map", "wind", "boatSelector", "jointure", "rain","distance-arrival", "distance-departure", "speed-average", "days"]
 
   connect() {
     this.windLayer = false
@@ -91,7 +91,6 @@ export default class extends Controller {
         this.map.setLayoutProperty('wx.temperatures-contour::conditions.temperature.contour', 'visibility', 'none')
         this.map.setLayoutProperty('wx.radar::conditions.radar', 'visibility', 'none')
         this.map.setLayoutProperty('wx.accum-precip-1hr::conditions.precip', 'visibility', 'none')
-        console.log(this.controller)
 
         const options = {
           type: 'move'
@@ -99,6 +98,14 @@ export default class extends Controller {
 
         this.controller.addDataInspectorControl(options)
     });
+  }
+
+  distanceCalculation(array) {
+    var from = turf.point([ this.markerEndingLatitudeValue, this.markerEndingLongitudeValue]);
+    var to = turf.point(array);
+    var options = {units: 'miles'};
+    var distance = turf.distance(from, to, options);
+    return distance;
   }
 
   setCable() {
@@ -118,7 +125,9 @@ export default class extends Controller {
     const wind_dir = data.wind_dir
     this.jointureTarget.dataset.directionwindirValue = wind_dir
     var coordinates = [data.longitude, data.latitude]
-
+    var distance = this.distanceCalculation(coordinates)
+    console.log(distance)
+    this.distanceTarget.innerText = `${distance} miles to arrival`
     const geojson = {
       'type': 'FeatureCollection',
       'features': [{
