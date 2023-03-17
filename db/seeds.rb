@@ -24,7 +24,7 @@ end
 r1.save!
 
 
-r2 = Race.create(name: "Saint-Malo - Cape Twon", departure_port: "Saint-Malo", arrival_port: "Cape Town", departure_flag: "🇫🇷", arrival_flag: "🇿🇦", starting_latitude: 48.649518, starting_longitude: -2.0260409, ending_latitude: -33.928992, ending_longitude: 18.417396, duration: 4, difficulty: 2, photo: "https://media.istockphoto.com/id/477451698/fr/photo/monts-douze-ap%C3%B4tres-montagne-dans-des-camps-bay-le-cap-afrique-du-sud.jpg?s=612x612&w=0&k=20&c=0keU6rBLNjT0aKkrHTRU3bfZbJasd3-7BpW8cNRwdNs=" )
+r2 = Race.create(name: "Saint-Malo - Cape Town", departure_port: "Saint-Malo", arrival_port: "Cape Town", departure_flag: "🇫🇷", arrival_flag: "🇿🇦", starting_latitude: 48.649518, starting_longitude: -2.0260409, ending_latitude: -33.928992, ending_longitude: 18.417396, duration: 4, difficulty: 2, photo: "https://media.istockphoto.com/id/477451698/fr/photo/monts-douze-ap%C3%B4tres-montagne-dans-des-camps-bay-le-cap-afrique-du-sud.jpg?s=612x612&w=0&k=20&c=0keU6rBLNjT0aKkrHTRU3bfZbJasd3-7BpW8cNRwdNs=" )
 
 coordinates_2.each do |coordinates|
   r2.coordinates << coordinates
