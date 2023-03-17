@@ -12,8 +12,8 @@ class ComputeNewPosition
     get_wind_info
     return nil unless success?
 
-    time_interval = (0.16666).fdiv(60) # inputs in minutes, output in hours
-    adj_coeff = 100 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
+    time_interval = (0.083333).fdiv(60) # inputs in minutes, output in hours
+    adj_coeff = 70 # A utiliser pour ajuster la distance parcourue aux besoins de la démo
     #info extracted from API, in degrees
     # boat_speed = allure-derived coeff * wind_speed
     # DIRECTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] avec 1: vent debout (0°), 2 & 10: Près (45°); 3 & 9: Bon près (60°);
