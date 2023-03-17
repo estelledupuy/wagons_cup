@@ -30,10 +30,10 @@
   <div class="d-flex" style="position:relative">
     <div id="game-map" data-map-game-target="map" style="width: 100%; padding-top: 9px;">
     <div class="card-info-game" style="position:absolute; right:0">
-        <div class="card poly" style="margin-right: 3vh;">
+        <div class="card poly" style="margin-right: 3vh; margin-top:7%">
           <div class="card-header d-flex">
             <img src="https://cdn.aerisapi.com/wxicons/v2/<%= @image_url %>" class="weather-image me-3" alt="Image météo">
-            <div class="h4 mt-3 ms-4">wind
+            <div class="h4 mt-3" style="text-align:center">wind
                 <p><%= @wind_speedy%> Mph   -    <%= @winddir %></p>
             </div>
         </div>
@@ -51,7 +51,7 @@
     <div class="boussole" style="" data-map-game-target="jointure" >
       <div class="parent" style="">
         <?xml version="1.0" encoding="UTF-8"?>
-          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 350px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg);">
+          <svg data-map-game-target="wind" data-direction-target="wind" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 952 952" style="width: 350px;position: absolute;left: -18px; z-index:2;transform: rotate(<%= @wind_direction%>deg); margin-top:7%">
 
             <defs>
               <style>
@@ -148,7 +148,7 @@
             <rect id="Border" class="cls-1" width="952" height="952"/>
           </svg>
         </div>
-        <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678960217/boat_commandes_yellow_xjcscb.png" alt="touches drectionnelles" style="position:absolute; height: 350px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>; z-index: 1; ">
+        <img id="boat" data-direction-target="boatSelector" data-map-game-target="boatSelector" class="boat-rotate"  src="https://res.cloudinary.com/dwclozjta/image/upload/v1678960217/boat_commandes_yellow_xjcscb.png" alt="touches drectionnelles" style="position:absolute; height: 350px; left: -18px; transform: <%= boat_direction_to_angle(1, @wind_direction) %>; z-index: 1; margin-top:7%">
 
         <div class="d-none">
           <%= simple_form_for(@boat, html: {data: { direction_target: "form"}}) do |f|%>
