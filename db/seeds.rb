@@ -36,3 +36,5 @@ coordinates_3.each do |coordinates|
 end
 r3.save!
 puts 'Finished!'
+
+User.create(email: "stormy@crossing.boats", password: "123456", admin: true)
