@@ -141,8 +141,8 @@ export default class extends Controller {
   }
 
   updateDashboard(data) {
-    this.darrivalTarget.innerText =`: ${Math.round(data.arrival_dist)} miles`
-    this.ddepartureTarget.innerText = `: ${Math.round(data.departure_dist)} miles`
+    this.darrivalTarget.innerText =` ${Math.round(data.arrival_dist)} miles`
+    this.ddepartureTarget.innerText = ` ${Math.round(data.departure_dist)} miles`
   }
 
   tiltWithWind(data) {

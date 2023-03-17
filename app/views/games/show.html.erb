@@ -20,10 +20,14 @@
             <a class="navbar-brand" href="https://www.stormycrossing.boats/">
               <img src="https://res.cloudinary.com/dwclozjta/image/upload/v1678973429/logo_stormy_crossing_lpvg58.png" />
             </a>
-            <h5 class="text-center" ><%= @boat.game.race.departure_flag%> <%= @boat.game.race.departure_port%></h5>
-            <h5 class="text-center" data-map-game-target="ddeparture"> 0 Miles </h5>
-            <h5 class="text-center" ><%= @boat.game.race.arrival_flag%> <%= @boat.game.race.arrival_port%></h5>
-            <h5 class="text-center" data-map-game-target="darrival"> <%=(Geocoder::Calculations.distance_between([@boat.game.race.starting_latitude, @boat.game.race.starting_longitude],[@boat.game.race.ending_latitude, @boat.game.race.ending_longitude])).round %> Miles</h5>
+            <div class="d-flex justify-content-start">
+              <h5 class="text-center departure" ><%= @boat.game.race.departure_flag%> <%= @boat.game.race.departure_port%> :</h5>
+              <h5 class="text-center" data-map-game-target="ddeparture"> 0 Miles </h5>
+            </div>
+            <div class="d-flex justify-content-start">
+              <h5 class="text-center arrival" ><%= @boat.game.race.arrival_flag%>   <%= @boat.game.race.arrival_port%> :</h5>
+              <h5 class="text-center" data-map-game-target="darrival"> <%=(Geocoder::Calculations.distance_between([@boat.game.race.starting_latitude, @boat.game.race.starting_longitude],[@boat.game.race.ending_latitude, @boat.game.race.ending_longitude])).round %> Miles</h5>
+            </div>
       </div>
   </div>
 
